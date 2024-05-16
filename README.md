@@ -1,3 +1,67 @@
+# Bachelor Thesis Title
+
+## Abstract
+
+Brief summary of the thesis.
+
+## Table of Contents
+
+- [1. Introduction](#1-introduction)
+- [2. Literature Review](#2-literature-review)
+- [3. Methodology](#3-methodology)
+- [4. Results](#4-results)
+- [5. Discussion](#5-discussion)
+- [6. Conclusion](#6-conclusion)
+- [7. References](#7-references)
+
+## 1. Introduction
+
+- Background
+- Problem Statement
+- Research Questions
+- Objectives
+- Scope and Limitations
+
+## 2. Literature Review
+
+- Overview of relevant literature
+- Theoretical framework
+- Previous research findings
+
+## 3. Methodology
+
+- Research design
+- Data collection methods
+- Data analysis techniques
+
+## 4. Results
+
+- Presentation of findings
+
+## 5. Discussion
+
+- Interpretation of results
+- Comparison with existing literature
+- Implications of findings
+
+## 6. Conclusion
+
+- Summary of key findings
+- Contributions to the field
+- Recommendations for future research
+
+## 7. References
+
+- List of all sources cited in the thesis
+
+
+
+
+
+
+
+
+
 # Markdown Cheat Sheet
 
 ## Headers
