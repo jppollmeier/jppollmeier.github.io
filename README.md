@@ -28,6 +28,7 @@ The primary objective of this study is to develop and apply algorithms to identi
 
 ### 1.4 Methodology Overview
 To achieve these goals, the study will make use of data analysis, algorithmic design and simulations. Earlier stages will involve getting familiar and preprocessing the data while later stages will involve the design and testing of various optimization algorithms, including iterative and probabilistic approaches. The criteria for evaluating the performance of an algorithmic approach will be based on simulation against a range of opponent teams. ???
+
 ---
 ### Todo
 ---
