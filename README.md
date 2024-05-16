@@ -18,19 +18,19 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
 ## 1. Introduction
 For many, unlike myself, Pokémon was their first portal into the realm of gaming. Pokemon is set in a world where you and the namegiving creatures, Pokemon, are best friends. You can catch Pokemon, battle them and conquer the rankings to become Pokemon master. The only catch is, at any point you may only be with a team of six pokemon. Only very little gaming franchises manage to keep such a large fanbase content over so many years of creating new and unique pokemon. Whats their secret to this success? Could it be that the game developers meticulously balanced every pokemon in such a way that it can be viable in certain usecases and team constellations? To test this hyptothesis I was tasked with finding a significantly better Pokemon team than the rest. This is not only an interesting question for many enthusiasts all over the world but also presents a rich field for computational analysis.
 
-## 1.1 Motivation
+### 1.1 Motivation
 The motivation for this particular problem stems from the personal interest in optimizing each component when gaming and the general interest for the pokemon franchise while also presenting interesting concepts in the fields of optimization problems, game theory and probability. By tackling these fields this study aims to contribute to the broader understanding of strategic game design and optimization problems with the possibility to extend that knowledge to beyond the realm of pokemon.
 
-## 1.2 Problem Statement
+### 1.2 Problem Statement
 Despite the many different approaches found online there remains no agreed upon standard of finding the best pokemon team. This study defines "best" as the ability of the team to adapt and succeed against a wide range of opposing teams.
 
-## 1.3 Objectives
+### 1.3 Objectives
 The primary objective of this study is to develop and apply algorithms to identify highly effective pokemon and constellations giving us ground to conclude wether a "best" pokemon team exists. Secondary objectives include measuring the effectiveness of the mentioned algorithms, analyzing the results to determine deciding factors for a "strong" team and visualizing different data sets.
 
 ## 1.4 Methodology Overview
 To achieve these goals, the study will make use of data analysis, algorithmic design and simulations. Earlier stages will involve getting familiar and preprocessing the data while later stages will involve the design and testing of various optimization algorithms, including iterative and probabilistic approaches. The criteria for evaluating the performance of an algorithmic approach will be based on simulation against a range of opponent teams.
 
-## 1.5 Thesis Structure
+### 1.5 Thesis Structure
 The remainder of the thesis is structured as follows: Chapter 2 will outline the methodology applied, Chapter 3 presents the implementation and testing phase of all algorithms used. Chapter 4 will discuss the results and findings and Chapter 5 will end the study with a conclusion and discussion of possible future work.
 
 
