@@ -27,7 +27,7 @@ Despite the many different approaches found online there remains no agreed upon 
 ### 1.3 Objectives
 The primary objective of this study is to develop and apply algorithms to identify highly effective pokemon and constellations giving us ground to conclude wether a "best" pokemon team exists. Secondary objectives include measuring the effectiveness of the mentioned algorithms, analyzing the results to determine deciding factors for a "strong" team and visualizing different data sets.
 
-## 1.4 Methodology Overview
+### 1.4 Methodology Overview
 To achieve these goals, the study will make use of data analysis, algorithmic design and simulations. Earlier stages will involve getting familiar and preprocessing the data while later stages will involve the design and testing of various optimization algorithms, including iterative and probabilistic approaches. The criteria for evaluating the performance of an algorithmic approach will be based on simulation against a range of opponent teams.
 
 ### 1.5 Thesis Structure
