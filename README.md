@@ -7,6 +7,7 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
 ## Table of Contents
 
 - [1. Introduction](#1-introduction)
+    - [1.1 Motivation](#1.1-motivation)
 - [2. Methodology](#2-methodology)
 - [3. Implementation](#3-implementation)
 - [4. Results](#4-results)
