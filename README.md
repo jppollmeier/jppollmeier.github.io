@@ -47,6 +47,8 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
     - [1.3 Objectives](#13-objectives)
     - [1.4 Methodology Overview](#14-methodology-overview)
     - [1.5 Thesis Structure](#15-thesis-structure)
+<details>
+<summary>2. Methodology</summary>
 - [2. Methodology](#2-methodology)
     - [2.1 Introduction to Methodology](#21-introduction-to-methodology)
     - [2.2 Research Design](#22-research-design)
@@ -59,6 +61,7 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
         - [2.5.2 Iterative Methods](#252-iterative-methods)
         - [2.5.3 Simulation-Based Approach](#253-simulation-based-approach)
     - [2.6 Conclusion](#26-conclusion)
+</details>
 - [3. Implementation](#3-implementation)
 - [4. Results](#4-results)
 - [5. Discussion](#5-discussion)
