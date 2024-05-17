@@ -8,12 +8,28 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
 
 - [1. Introduction](#1-introduction)
     - [1.1 Motivation](#11-motivation)
+    - [1.2 Problem Statement](#12-problem-statement)
+    - [1.3 Objectives](#13-objectives)
+    - [1.4 Methodology Overview](#14-methodology-overview)
+    - [1.5 Thesis Structure](#15-thesis-structure)
 - [2. Methodology](#2-methodology)
+    - [2.1 Introduction to Methodology](#21-introduction-to-methodology)
+    - [2.2 Research Design](#22-research-design)
+    - [2.3 Data Collection and Assumptions](#23-data-collection-and-assumptions)
+    - [2.4 Data Analysis](#24-data-analysis)
+        - [2.4.1 Assumptions](#241-assumptions)
+        - [2.4.2 Battle Simulation](#242-battle-simulation)
+    - [2.5 Algorithmic Approaches](#25-algorithmic-approaches)
+        - [2.5.1 Graph Theory Algorithms](#251-graph-theory-algorithms)
+        - [2.5.2 Iterative Methods](#252-iterative-methods)
+        - [2.5.3 Simulation-Based Approach](#253-simulation-based-approach)
+    - [2.6 Conclusion](#26-conclusion)
 - [3. Implementation](#3-implementation)
 - [4. Results](#4-results)
 - [5. Discussion](#5-discussion)
 - [6. Conclusion](#6-conclusion)
 - [7. References](#7-references)
+
 
 ## 1. Introduction
 For many, unlike myself, Pokémon was their first portal into the realm of gaming. Pokemon is set in a world where you and the namegiving creatures, Pokemon, are best friends. You can catch Pokemon, battle them and conquer the rankings to become Pokemon master. The only catch is, at any point you may only be with a team of six pokemon. Only very little gaming franchises manage to keep such a large fanbase content over so many years of creating new and unique pokemon. Whats their secret to this success? Could it be that the game developers meticulously balanced every pokemon in such a way that it can be viable in certain usecases and team constellations? To test this hyptothesis I was tasked with finding a significantly better Pokemon team than the rest. This is not only an interesting question for many enthusiasts all over the world but also presents a rich field for computational analysis.
