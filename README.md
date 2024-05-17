@@ -113,16 +113,18 @@ Explain the development and implementation of the battle simulation. Highlight h
 
 
 ### 2.5 Algorithmic Approaches
-*Generally the algorithms used can be divided into two groups. Firstly Algorithms which have been used to shrink the number of pokemon which might belong into the best pokemon team, lets call this candidate pool, and reducing the number of pokemons which a team can face to give battles some meaning and reduce overall noise, opponent pool. Secondly the algorithm which based on our previous findings and assumptions finds the best pokemon team using an iterative approach.*
-~~Algorithms employed can be diveded into two groups:
-Firstly Algorithms which decide if a pokemon is a candidade for either the strongest pokemon team and or the opponent teams. This is done so that we can drastically reduce the amount of pokemon which we need to consider as candidates and or opponents since most of them either are indirectly or directly replaceable by stronger pokemons with similar stats. Candiate pool is what we call all the pokemon which are in consideration for the strongest team while the opponent pool describes the pokemon which give meaningful battles to the candidate pool.
-Secondly we have the algorithms employed to find the best pokemon team~~
+
 
 #### 2.5.1 Graph Theory Algorithms
 *Describe the initial use of graph theory algorithms to analyze Pokémon attributes and relationships. Discuss the results obtained and any challenges faced.*
 
 #### 2.5.2 Iterative Methods
 *Explain the use of iterative methods to iteratively improve Pokémon team configurations. Discuss the rationale behind this approach and the results achieved.*
+
+*Generally the algorithms used can be divided into two groups. Firstly Algorithms which have been used to shrink the number of pokemon which might belong into the best pokemon team, lets call this candidate pool, and reducing the number of pokemons which a team can face to give battles some meaning and reduce overall noise, opponent pool. Secondly the algorithm which based on our previous findings and assumptions finds the best pokemon team using an iterative approach.*
+~~Algorithms employed can be diveded into two groups:
+Firstly Algorithms which decide if a pokemon is a candidade for either the strongest pokemon team and or the opponent teams. This is done so that we can drastically reduce the amount of pokemon which we need to consider as candidates and or opponents since most of them either are indirectly or directly replaceable by stronger pokemons with similar stats. Candiate pool is what we call all the pokemon which are in consideration for the strongest team while the opponent pool describes the pokemon which give meaningful battles to the candidate pool.
+Secondly we have the algorithms employed to find the best pokemon team~~
 
 
 #### Poolsize Reduction
