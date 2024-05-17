@@ -34,11 +34,31 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
         - [2.5.3 Simulation-Based Approach](#253-simulation-based-approach)
     - [2.6 Conclusion](#26-conclusion)
 </details>
+<details>
+<summary>3. Implementation</summary>
+
 - [3. Implementation](#3-implementation)
+</details>
+<details>
+<summary>4. Results</summary>
+    
 - [4. Results](#4-results)
+</details>
+<details>
+<summary>5. Discussion</summary>
+    
 - [5. Discussion](#5-discussion)
+</details>
+<details>
+<summary>6. Conclusion</summary>
+    
 - [6. Conclusion](#6-conclusion)
+</details>
+<details>
+<summary>7. References</summary>
+    
 - [7. References](#7-references)
+</details>
 
 
 ## 1. Introduction
