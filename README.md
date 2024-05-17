@@ -106,7 +106,7 @@ The analytical approach not only informed the initial selection of pokemon for t
 
 
 #### 2.4.1 Assumptions
-Detail the assumptions made about Pokémon attributes (e.g., IVs, EVs) to streamline the analysis process and avoid unnecessary complexity.
+In this project, certain assumptions are made to facilitate the analysis process and manage complexity. All Pokémon in the dataset are assumed to be at level 80, with effort values (EVs) set to 85 across all attributes and all individual values (IVs) set uniformly to 16. Furthermore, the nature of all Pokémon is assumed to be hardy. All those values have been chosen to be either the mean value or assure even attribute distribution. This is contrary to the actual game where almost each attribute is chosen at random making every Pokemon unique and impossible to create reproducable results. These simplifications allow for a more manageable analysis process and prevent unnecessary complexity that could otherwise blow the project out of proportion. Experienced Pokémon players may notice that some attributes of Pokémon are still missing. These are deliberatly ommitted, as they are deemed unnecessary for battling and are therefore excluded from our research. This brings us to the next section: The Battle Simulation. 
 
 #### 2.4.2 Battle Simulation
 Explain the development and implementation of the battle simulation. Highlight how it closely mimics Pokémon battles while simplifying certain aspects to manage complexity.
