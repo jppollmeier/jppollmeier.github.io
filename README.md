@@ -109,7 +109,14 @@ The analytical approach not only informed the initial selection of pokemon for t
 In this project, certain assumptions are made to facilitate the analysis process and manage complexity. All Pokémon in the dataset are assumed to be at level 80, with effort values (EVs) set to 85 across all attributes and all individual values (IVs) set uniformly to 16. Furthermore, the nature of all Pokémon is assumed to be hardy. All those values have been chosen to be either the mean value or assure even attribute distribution. This is contrary to the actual game where almost each attribute is chosen at random making every Pokemon unique and impossible to create reproducable results. These simplifications allow for a more manageable analysis process and prevent unnecessary complexity that could otherwise blow the project out of proportion. Experienced Pokémon players may notice that some attributes of Pokémon are still missing. These are deliberatly ommitted, as they are deemed unnecessary for battling and are therefore excluded from our research. This brings us to the next section: The Battle Simulation. 
 
 #### 2.4.2 Battle Simulation
-Explain the development and implementation of the battle simulation. Highlight how it closely mimics Pokémon battles while simplifying certain aspects to manage complexity.
+*Explain the development and implementation of the battle simulation. Highlight how it closely mimics Pokémon battles while simplifying certain aspects to manage complexity.*
+This entire project would be impossible to carry out without the battle function, its battle simulation underpins all our simulations. It serves as the foundation for all our assumptions and is crucial for verifying the findings of our simulations. The battle simulation is mainly based on the detailed information available on Bulbapedia. These articles outline the very details of how damage is calculated and how battles are fought out in Pokémon games. Due to the scope limitations of this project, I only focused on the most relevant factors that influence the overall outcome of a battle, such a Pokémons move sets, basic stats and type advantages.
+
+*maybe insert image of battling function and parts ommited*
+
+
+To put this into perspective, it is worth noting the development of Pokémon Showdown, the main competitive platform Pokémon enthusiasts turn to, started in 2012 as an open source project is still ongoing. This highlights the complexity and depth of accurately simulating Pokémon battles taking into account all the niche cases like weather, held items, status effects ecetera. By limiting the scope to the most critical elements, the battle simulation aims to provide a realistic yet manageable representation of Pokémon battles and serves as the base for this project.
+
 
 
 ### 2.5 Algorithmic Approaches
