@@ -112,7 +112,7 @@ In this project, certain assumptions are made to facilitate the analysis process
 *Explain the development and implementation of the battle simulation. Highlight how it closely mimics Pokémon battles while simplifying certain aspects to manage complexity.*
 This entire project would be impossible to carry out without the battle function, its battle simulation underpins all our simulations. It serves as the foundation for all our assumptions and is crucial for verifying the findings of our simulations. The battle simulation is mainly based on the detailed information available on Bulbapedia. These articles outline the very details of how damage is calculated and how battles are fought out in Pokémon games. Due to the scope limitations of this project, I only focused on the most relevant factors that influence the overall outcome of a battle, such a Pokémons move sets, basic stats and type advantages.
 
-*maybe insert image of battling function and parts ommited*
+!!*maybe insert image of battling function and parts ommited*!!
 
 
 To put this into perspective, it is worth noting the development of Pokémon Showdown, the main competitive platform Pokémon enthusiasts turn to, started in 2012 as an open source project is still ongoing. This highlights the complexity and depth of accurately simulating Pokémon battles taking into account all the niche cases like weather, held items, status effects ecetera. By limiting the scope to the most critical elements, the battle simulation aims to provide a realistic yet manageable representation of Pokémon battles and serves as the base for this project.
@@ -120,13 +120,17 @@ To put this into perspective, it is worth noting the development of Pokémon Sho
 
 
 ### 2.5 Algorithmic Approaches
+In this Section I will go over all the different approaches I used to evaluate wether there is a significantly better team than firstly a naivly selected team and secondly a generous amount of randomly generated teams. The foundation of all my algorithmic approaches is an initial simulation where each Pokémon battles against every other Pokémon to determine which ones perform the best giving me a starting point for all my approaches.
 
+!!!*This comprehensive performance matrix, illustrated by an image of the first 151 Pokémon from Generation 1, serves as a visual representation to help grasp the performance of each Pokémon and guides the development of subsequent algorithms.*!!!
 
 #### 2.5.1 Graph Theory Algorithms
 *Describe the initial use of graph theory algorithms to analyze Pokémon attributes and relationships. Discuss the results obtained and any challenges faced.*
+In the early stages I primarily concerned myself with graph theory and ranking algorithms to get a feel for the individual pokemon. Using the network library NetworkX I quickly was set up for initial analysis of all pokemon and their relations. Using this Network which has a node for each pokemon and an edge from pokemon A to B if pokemon A beats pokemon B with probability p >= threshold. Initially I was on the lookout for Kings and Dominating Sets. Kings are defined as as Verteces which can reach any Vertex through an edge. A n-King is a Vertex which does the same but using n Edges. Using this I wanted to Rule out the exisence of clear *must Pick* pokemon. Besides that I looked into the existance of minimal Dominating Sets where the Vertex count is <= 6. A dominating Set is a Set of Verteces which reaches every other Vertex through 1 Edge. By this I investigated the existance of good teams which "dominate" the whole list of Pokemon. Next I looked into different ranking algorithms like Pagerank and others to identify differences to the very rudimentary ranking of pokemon by their average win probability. Finally I looked into Communities and if there are any noteworthy interconnection points or gaps in the graph which force teams to have certain pokemon on their roster in order to be successful.
 
 #### 2.5.2 Iterative Methods
 *Explain the use of iterative methods to iteratively improve Pokémon team configurations. Discuss the rationale behind this approach and the results achieved.*
+After finishing up the Graph Theoretical approach of identifying a best Pokemon team I mainly concerned myself with an iterative approach which starts out with a randomly assembled team and tries to converge onto a *best team*. 
 
 *Generally the algorithms used can be divided into two groups. Firstly Algorithms which have been used to shrink the number of pokemon which might belong into the best pokemon team, lets call this candidate pool, and reducing the number of pokemons which a team can face to give battles some meaning and reduce overall noise, opponent pool. Secondly the algorithm which based on our previous findings and assumptions finds the best pokemon team using an iterative approach.*
 ~~Algorithms employed can be diveded into two groups:
