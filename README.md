@@ -148,6 +148,7 @@ Coverage describes a teams ability to beat different types of pokemon. A high co
 #### 2.5.3 Incremental Team Optimization Approach
 *Detail the simulation-based approach used to evaluate Pokémon team configurations. Discuss how this approach was chosen and the insights gained from the results.*
 This is the final approach i used to tackle the problem. It revolves around the idea of breaking the problem down into smaller subproblems and figuring out any relations which might be helpful in concluding something about the bigger problem. In this concrete case I started with the top 20 performing pokemon. Then I formed teams of two out of those top 20 individual pokemon and simulated battles against random opponent teams of size 2. I followed this this up by forming teams of 3 of the teams of 2 and continued this process until I reached teams of size 6.
+This also meant that I finally needed to take advantage the computing cluster, which I used to handle the extensive simulations and computations required.
 
 ### 2.6 Conclusion
 *Summarize the methodology section, highlighting the key steps taken in the research design, data collection, and analysis. Emphasize the importance of the battle simulation and the three algorithms used to find the best Pokémon team.*
@@ -160,9 +161,19 @@ My supervisor provided me with the flexibility to explore several approaches, as
 Now I am going to introduce you to the heart of this thesis which all prior pokemon subset selection lead up to. The algorithm works by looking the individually top performing 6 pokemon and the respective team they form. This is our baseline which needs to be beaten. Over a great number of battles I tested their performance and estimated their win probability against a random team. Now we make a selection of teams from our candidate pool making sure each pokemon gets selected at least once. Then the simulation process starts and we divide the teams into two groups based on our findings. Teams who significantly performed better than our baseline are here to stay while the rest gets discarded. We perform a union over the pokemon of the teams which stay and do not adjust the opponent pool?~~
 
 ## 3. Implementation
+In this implementation section, I will over the key components behind the different approaches. While I won't cover every detail here, those interested in the full implementation can have a look at the code, which is in the GitHub repository. [^2]
+
+
 ### 3.1 Battle Simulation
+The battle simulation consists of two main parts: the Pokémon class and the Battle class. Both of these classes will be touched upon in the following subsections.
+
+
 #### 3.1.1 Pokemon Class
+The Pokemon class contains
+
 #### 3.1.2 Battle Class
+
+
 ### 3.2 Graph Theory Algorithms
 ### 3.3 Iterative Algorithm
 ### 3.4 Incremental Team Optimization
@@ -188,6 +199,7 @@ Now I am going to introduce you to the heart of this thesis which all prior poke
 
 - List of all sources cited in the thesis
 [^1]: [Kaggle dataset](https://www.kaggle.com/datasets/mylesoneill/pokemon-sun-and-moon-gen-7-stats?select=moves.csv).
+[^2]: [GitHub Repository](Testtest)
 
 
 
