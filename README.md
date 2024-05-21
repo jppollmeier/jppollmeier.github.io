@@ -161,7 +161,7 @@ My supervisor provided me with the flexibility to explore several approaches, as
 Now I am going to introduce you to the heart of this thesis which all prior pokemon subset selection lead up to. The algorithm works by looking the individually top performing 6 pokemon and the respective team they form. This is our baseline which needs to be beaten. Over a great number of battles I tested their performance and estimated their win probability against a random team. Now we make a selection of teams from our candidate pool making sure each pokemon gets selected at least once. Then the simulation process starts and we divide the teams into two groups based on our findings. Teams who significantly performed better than our baseline are here to stay while the rest gets discarded. We perform a union over the pokemon of the teams which stay and do not adjust the opponent pool?~~
 
 ## 3. Implementation
-In this implementation section, I will over the key components behind the different approaches. While I won't cover every detail here, those interested in the full implementation can have a look at the code, which is in the GitHub repository. [^2]
+In this implementation section, I will over the key components behind the different approaches. While I won't cover every detail here, those interested in the full implementation can have a look at the code, which is in the GitHub repository. [^2] One thing you will often see is the conversion from .csv files into dictionaries due to them being faster. Generally everything that can be precomputed is precomputed.
 
 
 ### 3.1 Battle Simulation
@@ -169,7 +169,13 @@ The battle simulation consists of two main parts: the Pokémon class and the Bat
 
 
 #### 3.1.1 Pokemon Class
-The Pokemon class contains
+The Pokémon class initializes each Pokémon with its base stats, top moves, and calculated stats based on fixed EVs, IVs, and nature:
+- **Initialization**: Retrieves base stats, top moves, and calculates the final stats for each Pokémon.
+- **Stat Calculation**: Functions to calculate stats based on the Pokémon's base stats, EVs, IVs, and nature.
+- **Reset HP**: Resets the Pokémon's battle HP to its base HP. This is done so I can quickly reset a pokemon in battle to its normal HP after it faints and not create a completely new Pokémon everytime.
+- **Retrieve Moves**: Retrieves the top moves for each Pokémon.
+- **Print Stats**: Prints the Pokémon's stats for debugging purposes.
+
 
 #### 3.1.2 Battle Class
 
