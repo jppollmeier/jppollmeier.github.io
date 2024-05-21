@@ -187,7 +187,7 @@ Now I am going to introduce you to the heart of this thesis which all prior poke
 ## 7. References
 
 - List of all sources cited in the thesis
-[^1]: This is the Kaggle footnote.
+[^1]: [Kaggle dataset](https://www.kaggle.com/datasets/mylesoneill/pokemon-sun-and-moon-gen-7-stats?select=moves.csv).
 
 
 
@@ -252,11 +252,6 @@ Now I am going to introduce you to the heart of this thesis which all prior poke
 - [x] Task 1
 - [ ] Task 2
 - [ ] Task 3
-
-### Footnotes
-Here's a sentence with a footnote. [^1]
-
-[^1]: This is the footnote.
 
 ### Horizontal Rule
 ---
