@@ -89,7 +89,7 @@ This Chapter will outline the methodology employed to identify the optimal Pokem
 The research follows a quantitative approach focused on measurable performance to asses the strength of a team. An experimental research design was used where strong teams found by the algorithm were tested against several thousand opponent teams and a naivly chosen "best team" which consists of the top six individually best performing pokemon. This design gave us ground to assess team performance based on measurable performance metrics such as win-probability against random teams and the baseline of the naively chosen team.
 
 ### 2.3 Data Collection and Assumptions
-The Data used for this Project was provided to me by my supervisor who found a dataset on Kaggle. (footnote to dataset ~\cite{Kaggle-Link}) ????? The data contains over 1000 pokemon, all their learnable abilities, stats and most relevant features to build a battle simulation. Although the data was far from perfectly curated it gave me a base to quickly jump right into the data analysis and development of my methodology.
+The Data used for this Project was provided to me by my supervisor who found a dataset on Kaggle [^1]. The data contains over 1000 pokemon, all their learnable abilities, stats and most relevant features to build a battle simulation. Although the data was far from perfectly curated it gave me a base to quickly jump right into the data analysis and development of my methodology.
 
 ---
 ### TODO
@@ -160,7 +160,12 @@ My supervisor provided me with the flexibility to explore several approaches, as
 Now I am going to introduce you to the heart of this thesis which all prior pokemon subset selection lead up to. The algorithm works by looking the individually top performing 6 pokemon and the respective team they form. This is our baseline which needs to be beaten. Over a great number of battles I tested their performance and estimated their win probability against a random team. Now we make a selection of teams from our candidate pool making sure each pokemon gets selected at least once. Then the simulation process starts and we divide the teams into two groups based on our findings. Teams who significantly performed better than our baseline are here to stay while the rest gets discarded. We perform a union over the pokemon of the teams which stay and do not adjust the opponent pool?~~
 
 ## 3. Implementation
-
+### 3.1 Battle Simulation
+#### 3.1.1 Pokemon Class
+#### 3.1.2 Battle Class
+### 3.2 Graph Theory Algorithms
+### 3.3 Iterative Algorithm
+### 3.4 Incremental Team Optimization
 
 
 ## 4. Results
@@ -182,7 +187,7 @@ Now I am going to introduce you to the heart of this thesis which all prior poke
 ## 7. References
 
 - List of all sources cited in the thesis
-
+[^1]: This is the Kaggle footnote.
 
 
 
