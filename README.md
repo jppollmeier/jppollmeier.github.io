@@ -165,7 +165,7 @@ In this implementation section, I will over the key components behind the differ
 
 
 ### 3.1 Battle Simulation
-The battle simulation consists of two main parts: the Pokémon class and the Battle class. Both of these classes will be touched upon in the following subsections.
+The battle simulation consists of three main parts: the Pokémon class, Team class and the Battle class. Both of these classes will be touched upon in the following subsections.
 
 
 #### 3.1.1 Pokemon Class
@@ -176,9 +176,36 @@ The Pokémon class initializes each Pokémon with its base stats, top moves, and
 - **Retrieve Moves**: Retrieves the top moves for each Pokémon.
 - **Print Stats**: Prints the Pokémon's stats for debugging purposes.
 
+#### 3.1.2 Team Class
+The Team class initializes a team of Pokémon, ensuring unique Pokédex numbers and filling the team to the required size if necessary:
+- **Initialization**: 
+  - Takes a variable number of Pokémon IDs and a team size. Which is especially important for the Incremental Team Optimization Approach.
+  - Ensures that the team consists of unique Pokémon based on their Pokédex numbers.
+  - Fills the rest of the team with random, unique Pokémon if the provided IDs are insufficient to meet the team size.
+- **Reset**: 
+  - Resets the HP of all Pokémon in the team to their base HP.
+- **String Representation**: 
+  - Provides a string representation of the team, listing each Pokémon and their base HP for debugging purposes.
 
-#### 3.1.2 Battle Class
 
+#### 3.1.3 Battle Class
+
+The Battle class manages battles between two teams of Pokémon, handling individual battles and determining the overall winner:
+
+- **Initialization and Data Loading**: 
+  - CSV files are read and converted into dictionaries for faster access during battles.
+  - Type chart data is preprocessed into a nested dictionary for quick lookups.
+
+- **Battle Functions**:
+  - `teamBattle(team1, team2, verbose=True)`: 
+    - Manages a full battle between two teams of Pokémon.
+    - Determines the winner based on which team's Pokémon faint first.
+  - `battle(pokemon1, pokemon2, verbose=True)`:
+    - Conducts a battle between two individual Pokémon.
+    - Determines the first attacker based on speed and alternates attacks until one Pokémon faints.
+  - `attack(pokemon1, pokemon2, verbose)`:
+    - Handles the logic for one Pokémon attacking another.
+    - Chooses a random move, calculates damage, and updates the defending Pokémon's HP.
 
 ### 3.2 Graph Theory Algorithms
 ### 3.3 Iterative Algorithm
