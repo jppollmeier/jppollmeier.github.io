@@ -130,16 +130,11 @@ In the early stages I primarily concerned myself with graph theory and ranking a
 
 #### 2.5.2 Iterative Methods
 *Explain the use of iterative methods to iteratively improve Pokémon team configurations. Discuss the rationale behind this approach and the results achieved.*
-After finishing up the Graph Theoretical approach of identifying a best Pokemon team I mainly concerned myself with an iterative approach which starts out with a randomly assembled team and tries to converge onto a *best team*. 
+After finishing up the Graph Theoretical approach of identifying a best Pokemon team I mainly concerned myself with an iterative approach which starts out with a randomly assembled team and tries to converge onto a *best team* by improving the randomly assembled team iteratively. Due to very similar results in performance when improving over and over again I needed to look into reducing the overall noise in the win probability of the teams which performed well. The noise in winprobabilities was assumed to exist because of many random teams battles outcomes being clear due to super weak pokemon. To distinguis the great teams from the good in this noise I either had to run many magnitudes more battles or I needed a way to remove super weak pokemon out of the random opponenets.
 
-*Generally the algorithms used can be divided into two groups. Firstly Algorithms which have been used to shrink the number of pokemon which might belong into the best pokemon team, lets call this candidate pool, and reducing the number of pokemons which a team can face to give battles some meaning and reduce overall noise, opponent pool. Secondly the algorithm which based on our previous findings and assumptions finds the best pokemon team using an iterative approach.*
-~~Algorithms employed can be diveded into two groups:
-Firstly Algorithms which decide if a pokemon is a candidade for either the strongest pokemon team and or the opponent teams. This is done so that we can drastically reduce the amount of pokemon which we need to consider as candidates and or opponents since most of them either are indirectly or directly replaceable by stronger pokemons with similar stats. Candiate pool is what we call all the pokemon which are in consideration for the strongest team while the opponent pool describes the pokemon which give meaningful battles to the candidate pool.
-Secondly we have the algorithms employed to find the best pokemon team~~
+Generally the algorithms used to do that can be divided into two groups. Firstly Algorithms which have been used to shrink the number of pokemon which might belong into the best pokemon team, lets call this candidate pool, and secondly reducing the number of pokemons which a team can face to give battles some meaning and reduce overall noise, called opponent pool.
 
-
-#### Poolsize Reduction
-Generally the candidate- and opponent pool are assumed to be equal in the beginning. The main practices used to reduce the size of the pools is based upon previous data analysis. Generally the question to answer was can this pokemon be replaced directly by one or more pokemon which are equally as good or better in all its relevant stats. For this I tried several strategies:
+Generally the candidate- and opponent pool are assumed to be equal in the beginning with every pokemon being in it. The main practices used to reduce the size of the pools is based upon previous data analysis. Generally the question to answer was can this pokemon be replaced directly by one or more pokemon which are equally as good or better in all its relevant stats. For this I tried several strategies:
 
 ##### Top performing Pokemon by type
 For each type combination and pokemon A, there are 171 ($\binom{18}{2} + 18$). I looked at every other same typed pokemon B and checked if this pokemon B has equal or better stats than pokemon A and beats all opposing pokemon and if so B can replace A. This reduced the size by only roughly 50\% which is not enough for the algorithm to run efficiently
@@ -150,16 +145,19 @@ Doing the same but scaled by the amount of pokemon in that typing
 ##### Coverage algorithms?
 Coverage describes a teams ability to beat different types of pokemon. A high coverage means a team might win against a lot of pokemon teams with a low probability of e.g. 70\%. Coverage is constituted of the minimal nonzero value of any of the pokemon which beats all pokemon of a type group. With this metric we can define a team with high coverage to form a good team since most types are covered. While teams with low coverage might be especially effective against the eventually to be found "best team" they are not suitable to be the best team themselves as they only cover a small subset of the broad spectrum of teams.
 
-
-#### 2.5.3 Simulation-Based Approach
-Detail the simulation-based approach used to evaluate Pokémon team configurations. Discuss how this approach was chosen and the insights gained from the results.
-
-
-#### The actual Algorithms
-Now I am going to introduce you to the heart of this thesis which all prior pokemon subset selection lead up to. The algorithm works by looking the individually top performing 6 pokemon and the respective team they form. This is our baseline which needs to be beaten. Over a great number of battles I tested their performance and estimated their win probability against a random team. Now we make a selection of teams from our candidate pool making sure each pokemon gets selected at least once. Then the simulation process starts and we divide the teams into two groups based on our findings. Teams who significantly performed better than our baseline are here to stay while the rest gets discarded. We perform a union over the pokemon of the teams which stay and do not adjust the opponent pool?
+#### 2.5.3 Incremental Team Optimization Approach
+*Detail the simulation-based approach used to evaluate Pokémon team configurations. Discuss how this approach was chosen and the insights gained from the results.*
+This is the final approach i used to tackle the problem. It revolves around the idea of breaking the problem down into smaller subproblems and figuring out any relations which might be helpful in concluding something about the bigger problem. In this concrete case I started with the top 20 performing pokemon. Then I formed teams of two out of those top 20 individual pokemon and simulated battles against random opponent teams of size 2. I followed this this up by forming teams of 3 of the teams of 2 and continued this process until I reached teams of size 6.
 
 ### 2.6 Conclusion
 *Summarize the methodology section, highlighting the key steps taken in the research design, data collection, and analysis. Emphasize the importance of the battle simulation and the three algorithms used to find the best Pokémon team.*
+My supervisor provided me with the flexibility to explore several approaches, as there is no clear best way to tackle such a complex optimization problem. This allowed me to be dynamic and adaptive with my research, enabling me to experiment with graph theoretical methods, iterative techniques, and simulation-based evaluations, leading to a more exploratory and on the go process.
+
+
+
+
+~~#### The actual Algorithms
+Now I am going to introduce you to the heart of this thesis which all prior pokemon subset selection lead up to. The algorithm works by looking the individually top performing 6 pokemon and the respective team they form. This is our baseline which needs to be beaten. Over a great number of battles I tested their performance and estimated their win probability against a random team. Now we make a selection of teams from our candidate pool making sure each pokemon gets selected at least once. Then the simulation process starts and we divide the teams into two groups based on our findings. Teams who significantly performed better than our baseline are here to stay while the rest gets discarded. We perform a union over the pokemon of the teams which stay and do not adjust the opponent pool?~~
 
 ## 3. Implementation
 
