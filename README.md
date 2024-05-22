@@ -208,7 +208,48 @@ The Battle class manages battles between two teams of Pokémon, handling individ
     - Chooses a random move, calculates damage, and updates the defending Pokémon's HP.
 
 ### 3.2 Graph Theory Algorithms
+### Graph Theory Algorithms
+
+Most of the graph theory algorithms were implemented using the NetworkX library. Key algorithms and methods used include:
+
+- **Directed Graph Functions**:
+  - Created directed graphs (`G`) from Pokémon battle outcomes, adding edges between Pokémon A and B if A beats B with a probability \( p \geq 0.9 \).
+
+- **Dominating Sets**:
+  - Utilized `nx.dominating_set(G)` to find dominating sets. (The problem of finding smallest dominating sets is NP-Hard and only bruteforcable for smaller subsets of all pokemon.)
+
+- **Finding Kings**:
+  - Implemented a custom function to find "kings" in the tournament graph, defined as Pokémon from which every other Pokémon is reachable within two steps:
+    ```python
+    def is_king(tournament, vertex):
+        shortest_paths = nx.single_source_shortest_path_length(tournament, vertex, cutoff=2)
+        return len(shortest_paths) == len(tournament.nodes)
+
+    def find_kings(tournament):
+        kings = []
+        for vertex in tournament.nodes:
+            if is_king(tournament, vertex):
+                kings.append(vertex)
+        return (kings, len(kings))
+
+    find_kings(G)
+    ```
+
+- **Ranking Metrics**:
+  - Evaluated various centrality and ranking metrics to identify better metrics than win probability for ranking Pokémon in the created DiGraph \( G \):
+    - `in_degree = nx.in_degree_centrality(G)`
+    - `out_degree = nx.out_degree_centrality(G)`
+    - `page_rank = nx.pagerank(G)`
+    - `hubs, authorities = nx.hits(G)`
+    - `betweenness = nx.betweenness_centrality(G)`
+    - `closeness = nx.closeness_centrality(G)`
+
+- **Community Detection**:
+  - Detected communities within the undirected graph using `communities = nx.algorithms.community.louvain_communities(G_undirected)` to explore relationships among Pokémon.
+
+
 ### 3.3 Iterative Algorithm
+
 ### 3.4 Incremental Team Optimization
 
 
