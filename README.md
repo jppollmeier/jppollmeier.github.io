@@ -208,7 +208,7 @@ The Battle class manages battles between two teams of Pokémon, handling individ
 ### 3.2 Graph Theory Algorithms
 ### Graph Theory Algorithms
 
-Most of the graph theory algorithms were implemented using the NetworkX library. Key algorithms and methods used include:
+This will be the most uninteresting implementation-section since most of the graph theory algorithms were implemented using the NetworkX library and only little adjustements or loops have been employed. Key algorithms and methods used include:
 
 - **Directed Graph Functions**:
   - Created directed graphs (`G`) from Pokémon battle outcomes, adding edges between Pokémon A and B if A beats B with a probability \( p \geq 0.9 \).
@@ -247,6 +247,81 @@ Most of the graph theory algorithms were implemented using the NetworkX library.
 
 
 ### 3.3 Iterative Algorithm
+The following algorithm iteratively identifies top-performing Pokémon teams by simulating battles and refining the selection of Pokémon IDs over multiple iterations.
+
+#### Algorithm Description
+
+1. **Initialization**:
+    - Start with a random sample of Pokémon IDs (`subset_size`).
+    - Set parameters for the number of iterations, the number of top teams to consider, the number of battles to start with, and the number of battles to end with.
+
+2. **Iterative Process**:
+    - For each iteration:
+        - **Generate Opponent Teams**: Create a set of fixed opponent teams by randomly sampling Pokémon IDs and adding any custom teams provided.
+        - **Simulate Battles**: Use the `run_battle_simulation` function to simulate battles between the generated teams and record win counts for each team.
+        - **Identify Top Performers**: Sort teams by their win counts to identify the top teams and extract the most frequently occurring Pokémon.
+        - **Update Pokémon IDs**: Update the current set of Pokémon IDs with the top-performing Pokémon IDs and introduce new IDs to maintain diversity.
+        - **Check Specific Team Performance**: Calculate the win rate of a specific team and track better-performing teams if the specific team is not the best or does not have a 100% win rate.
+
+3. **Output**:
+    - The algorithm returns the top Pokémon IDs after the final iteration.
+
+#### Code Implementation
+
+```python
+from scripts.Team import Team
+from collections import Counter
+from scripts.Battle import teamBattle
+
+def run_battle_simulation(team_combinations, number_of_opponents, id_set, custom_opponent_teams=None):
+    win_counts = {}
+    if custom_opponent_teams is None:
+        custom_opponent_teams = []
+    fixed_opponent_teams = [Team(*random.sample(id_set, 6)) for _ in range(number_of_opponents)] + custom_opponent_teams
+    for team_combo in team_combinations:
+        win_counts[team_combo] = 0
+        team1 = Team(*team_combo)
+        for opponent_team in fixed_opponent_teams:
+            opponent_team.reset()
+            team1.reset()
+            result = teamBattle(team1, opponent_team)
+            if result == 1:
+                win_counts[team_combo] += 1
+    return win_counts
+
+def find_top_performers(win_counts, top_n):
+    sorted_teams = sorted(win_counts.items(), key=lambda x: x[1], reverse=True)
+    top_teams = sorted_teams[:top_n]
+    top_pokemon = [pokemon for team, _ in top_teams for pokemon in team]
+    return Counter(top_pokemon), top_teams
+
+def iterative_best(iterations=100, id_set=list(range(1, 803)), subset_size=12, top_teams_to_consider=10, start_battles=100, end_battles=200, print_teams=False):
+    current_ids = random.sample(id_set, subset_size)
+    for iteration in range(iterations):
+        number_of_opponents = int((start_battles + ((end_battles - start_battles) * (iteration / (iterations-1)))))
+        team_combinations = list(itertools.combinations(current_ids, 6))
+        custom_opponent_teams = [Team(*random.sample(current_ids, 6)) for _ in range(number_of_opponents)]
+        win_counts = run_battle_simulation(team_combinations, number_of_opponents, id_set, custom_opponent_teams)
+        top_pokemon_counter, top_teams = find_top_performers(win_counts, top_teams_to_consider)
+        top_ids = [id for id, _ in top_pokemon_counter.most_common(6)]
+        new_pokemon_ids = []
+        unique_current_ids = set(top_ids[:6])
+        while len(unique_current_ids) < subset_size:
+            new_id = random.choice(id_set)
+            if new_id not in unique_current_ids:
+                unique_current_ids.add(new_id)
+                new_pokemon_ids.append(new_id)
+                id_set.remove(new_id)
+        current_ids = list(unique_current_ids)
+        if print_teams:
+            print(f"\nTop 10 Teams from Iteration {iteration + 1}:")
+            for team, win_count in top_teams[:10]:
+                team_win_rate = (win_count / (number_of_opponents + len(custom_opponent_teams))) * 100
+                print(f"Team {team}: {win_count} wins ({team_win_rate:.2f}%)")
+    return top_ids
+```
+
+
 
 ### 3.4 Incremental Team Optimization
 
