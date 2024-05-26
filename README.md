@@ -368,6 +368,7 @@ class Team:
         return "Team: " + ', '.join((str(pokemon.name) + " " + str(pokemon.bhp)) for pokemon in self.pokemon_team)
 ```
 
+</details>
 
 #### 3.1.3 Battle Class
 
