@@ -174,6 +174,153 @@ The Pokémon class initializes each Pokémon with its base stats, top moves, and
 - **Retrieve Moves**: Retrieves the top moves for each Pokémon.
 - **Print Stats**: Prints the Pokémon's stats for debugging purposes.
 
+<details>
+  <summary>Code Pokemon Class</summary>
+    
+```Python
+class Pokemon:
+    def __init__(self, id, moves=None, level=None, hp_ev=None, attack_ev=None, defense_ev=None, special_attack_ev=None, special_defense_ev=None, speed_ev=None, hp_iv=None, attack_iv=None, defense_iv=None, special_attack_iv=None, special_defense_iv=None, speed_iv=None, nature=None):
+        self.id = id
+
+        # Retrieve the base stats for the Pokémon using the preprocessed dictionary
+        base_stats = base_stats_dict[self.id]
+
+        self.name = base_stats['forme']
+        self.species = base_stats['species']
+        self.ndex = base_stats['ndex']
+
+        self.type1 = base_stats['type1'].lower()
+        self.type2 = base_stats['type2'].lower() if isinstance(base_stats['type2'], str) else ''
+
+        self.level = 80  # Assuming a fixed level
+
+        # Retrieve top moves using the preprocessed dictionary
+        self.moves = self.get_top_moves()
+
+        # Set EVs and IVs
+        self.hp_ev = self.attack_ev = self.defense_ev = self.special_attack_ev = self.special_defense_ev = self.speed_ev = 85
+        self.hp_iv = self.attack_iv = self.defense_iv = self.special_attack_iv = self.special_defense_iv = self.speed_iv = 16
+
+        # Set nature and retrieve nature modifiers using the preprocessed dictionary
+        self.nature = "Hardy"  # Assuming a fixed nature
+        nature_modifiers = nature_modifiers_dict[self.nature]
+
+        # Function to calculate each stat
+        def calc_stat(base, iv, ev, nature_mod):
+            return ((2 * base + iv + ev // 4) * self.level) // 100 + 5 * nature_mod
+
+        # Function to calculate HP
+        def calc_hp(base, iv, ev):
+            if base == 1:  # For special cases like Shedinja
+                return 1
+            return ((2 * base + iv + ev // 4) * self.level) // 100 + self.level + 10
+
+        # Calculate stats
+        self.hp = calc_hp(base_stats['hp'], self.hp_iv, self.hp_ev)
+        self.bhp = self.hp
+        self.attack = calc_stat(base_stats['attack'], self.attack_iv, self.attack_ev, nature_modifiers['attack'])
+        self.defense = calc_stat(base_stats['defense'], self.defense_iv, self.defense_ev, nature_modifiers['defense'])
+        self.special_attack = calc_stat(base_stats['spattack'], self.special_attack_iv, self.special_attack_ev, nature_modifiers['spattack'])
+        self.special_defense = calc_stat(base_stats['spdefense'], self.special_defense_iv, self.special_defense_ev, nature_modifiers['spdefense'])
+        self.speed = calc_stat(base_stats['speed'], self.speed_iv, self.speed_ev, nature_modifiers['speed'])
+
+
+
+
+        # Generate EVs and IVs if all respective values are None
+        '''
+        if all(v is None for v in [hp_ev, attack_ev, defense_ev, special_attack_ev, special_defense_ev, speed_ev]):
+            self.generate_legal_evs()
+        if all(v is None for v in [hp_iv, attack_iv, defense_iv, special_attack_iv, special_defense_iv, speed_iv]):
+            self.generate_ivs()
+        '''
+        #removed due to already being set
+    
+    def reset_hp(self):
+        self.bhp = self.hp
+
+
+    def generate_legal_evs(self):
+        MAX_EV_PER_STAT = 252
+        MAX_TOTAL_EVs = 510
+
+        ev_attributes = {
+            "hp_ev": "HP",
+            "attack_ev": "Attack",
+            "defense_ev": "Defense",
+            "special_attack_ev": "Special Attack",
+            "special_defense_ev": "Special Defense",
+            "speed_ev": "Speed"
+        }
+
+        total_evs = sum([getattr(self, attr) for attr in ev_attributes])
+
+        while total_evs < MAX_TOTAL_EVs:
+            # Randomly select an EV attribute
+            ev_attr_index = int(pop_random() * len(ev_attributes))
+            ev_attr = list(ev_attributes.keys())[ev_attr_index]
+
+            max_possible_ev = min(MAX_EV_PER_STAT - getattr(self, ev_attr), MAX_TOTAL_EVs - total_evs)
+
+            if max_possible_ev <= 0:
+                break
+
+            # Determine EV to add
+            ev_to_add = int(pop_random() * max_possible_ev) + 1
+            setattr(self, ev_attr, getattr(self, ev_attr) + ev_to_add)
+            total_evs += ev_to_add
+
+
+    def generate_ivs(self):
+        iv_attributes = [
+            "hp_iv", 
+            "attack_iv", 
+            "defense_iv", 
+            "special_attack_iv", 
+            "special_defense_iv", 
+            "speed_iv"
+        ]
+        for iv_attr in iv_attributes:
+            iv_value = int(pop_random() * 32)
+            setattr(self, iv_attr, iv_value)
+
+
+    def get_top_moves(self):
+        # Retrieve top moves for the given Pokémon
+        moves = top_moves_dict.get(self.name, {})
+        if moves == {}:
+            #print(f"Failed to fetch moves with \"{self.name}\" now trying \"{self.species}\"")
+            moves = top_moves_dict.get(self.species, {})
+        return moves
+
+
+
+    def sample_moves(moves):
+        sampled_moves = set()
+        moves_list = list(moves)
+
+        while len(sampled_moves) < min(4, len(moves_list)):
+            move_index = int(pop_random() * len(moves_list))
+            sampled_moves.add(moves_list[move_index])
+        
+        return list(sampled_moves)
+
+
+    def print_stats(self):
+        print(f"Pokemon ID: {self.id}")
+        print(f"Name: {self.name}")
+        print(f"(Types: {self.type1, self.type2}")
+        print(f"Level: {self.level}")
+        print(f"Nature: {self.nature}")
+        print(f"Stats: HP: {self.hp}, Attack: {self.attack}, Defense: {self.defense}, Special Attack: {self.special_attack}, Special Defense: {self.special_defense}, Speed: {self.speed}")
+        print(f"EVs: HP: {self.hp_ev}, Attack: {self.attack_ev}, Defense: {self.defense_ev}, Special Attack: {self.special_attack_ev}, Special Defense: {self.special_defense_ev}, Speed: {self.speed_ev}")
+        print(f"IVs: HP: {self.hp_iv}, Attack: {self.attack_iv}, Defense: {self.defense_iv}, Special Attack: {self.special_attack_iv}, Special Defense: {self.special_defense_iv}, Speed: {self.speed_iv}")
+        print(f"Moves: {self.moves}")
+```
+
+</details>
+
+
 #### 3.1.2 Team Class
 The Team class initializes a team of Pokémon, ensuring unique Pokédex numbers and filling the team to the required size if necessary:
 - **Initialization**: 
@@ -325,10 +472,29 @@ def iterative_best(iterations=100, id_set=list(range(1, 803)), subset_size=12, t
 
 ### 3.4 Incremental Team Optimization
 
+Given the computational complexity of simulating battles for full 6v6 teams, we started with smaller subproblems. The main idea is to:
 
+1. Identify the top 20 individually performing Pokémon.
+2. Create all possible pairs (combinations) from these 20 Pokémon.
+3. Simulate battles between these pairs and random teams to evaluate their performance.
+4. Incrementally build larger teams by fusing smaller teams, adding one Pokémon at a time, based on shared members and predicted performance.
+
+### Process Summary
+
+1. **Create Initial Teams**: Form all `20 choose 2` pairs from the top 20 Pokémon.
+2. **Simulate Battles**: Evaluate the performance of these pairs against random teams.
+3. **Fuse Teams**: Combine smaller teams into larger teams (triples, quadruples, etc.) if they share `team_size-1` Pokémon.
+4. **Predict Performance**: Use the performance of smaller teams to predict the performance of the newly formed larger teams.
+5. **Simulate and Compare**: Simulate battles for the larger teams and compare the results with the predictions.
+6. **Repeat**: Continue the process, increasing the team size by one each iteration until reaching teams of size 6.
+
+### Code Implementation
+
+---
+###TODO
+---
 ## 4. Results
 
-- Presentation of findings
 
 ## 5. Discussion
 
