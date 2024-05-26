@@ -525,6 +525,7 @@ Given the computational complexity of simulating battles for full 6v6 teams, we 
 
 <details>
   <summary>Code Incermental Team Optimization</summary>
+    
 ---
 Since showing all examples would be a bit much I will just use the case from teams of size 3 to teams of size 4 as an example:
 #### Prediction from triples to Quadruples
