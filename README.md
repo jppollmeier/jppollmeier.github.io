@@ -332,6 +332,42 @@ The Team class initializes a team of Pokémon, ensuring unique Pokédex numbers 
 - **String Representation**: 
   - Provides a string representation of the team, listing each Pokémon and their base HP for debugging purposes.
 
+<details>
+  <summary>Code Team Class</summary>
+    
+```Python
+class Team:
+    def __init__(self, *pokemon_ids, team_size):
+        self.max_team_size = team_size
+        self.pokemon_ids = []
+        self.pokedex_numbers = set()  # To track unique Pokédex numbers
+        self.pokemon_team = []
+        
+        # Process the provided Pokémon IDs, ensuring they are unique by Pokédex number
+        for pid in pokemon_ids:
+            pokemon = scripts.Pokemon.Pokemon(pid)
+            if pokemon.ndex not in self.pokedex_numbers:
+                self.pokemon_ids.append(pid)
+                self.pokemon_team.append(pokemon)
+                self.pokedex_numbers.add(pokemon.ndex)
+        
+        # Fill the rest of the team with random, unique Pokémon, if necessary
+        while len(self.pokemon_team) < self.max_team_size:
+            random_id = random.randint(1, 151)
+            random_pokemon = scripts.Pokemon.Pokemon(random_id)
+            if random_pokemon.ndex not in self.pokedex_numbers:
+                self.pokemon_ids.append(random_id)
+                self.pokemon_team.append(random_pokemon)
+                self.pokedex_numbers.add(random_pokemon.ndex)
+
+    def reset(self):
+        for pok in self.pokemon_team:
+            pok.reset_hp()
+            
+    def __str__(self):
+        return "Team: " + ', '.join((str(pokemon.name) + " " + str(pokemon.bhp)) for pokemon in self.pokemon_team)
+```
+
 
 #### 3.1.3 Battle Class
 
