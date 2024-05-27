@@ -29,7 +29,7 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
     - [2.5 Algorithmic Approaches](#25-algorithmic-approaches)
         - [2.5.1 Graph Theory Algorithms](#251-graph-theory-algorithms)
         - [2.5.2 Iterative Methods](#252-iterative-methods)
-        - [2.5.3 Simulation-Based Approach](#253-simulation-based-approach)
+        - [2.5.3 Incremental Team Optimization Approach](#253-incremental-team-optimization-approach)
     - [2.6 Conclusion](#26-conclusion)
 - [3. Implementation](#3-implementation)
 - [4. Results](#4-results)
