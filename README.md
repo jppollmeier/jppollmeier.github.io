@@ -531,9 +531,11 @@ Given the computational complexity of simulating battles for full 6v6 teams, we 
 
 <details>
   <summary><p style="color: red;">Code Incermental Team Optimization</p></summary>
+    
 ---
 Since showing all examples would be a bit much I will just use the case from teams of size 3 to teams of size 4 as an example:
 #### Prediction from triples to Quadruples
+    
 ```Python
 def fuse_to_quadruples(ranked_results_df):
     ranked_results = {tuple(sorted(map(int, row[:3]))): row[3] for row in ranked_results_df.to_numpy()}
