@@ -6,6 +6,7 @@
 <p style="color: blue;">This is blue text.</p>
 
 <details>
+  
   <summary>Click me</summary>
   
   ### Heading
@@ -15,11 +16,13 @@
      * Qux
 
   ### Some Javascript
+  
   ```js
   function logSomething(something) {
     console.log('Something', something);
   }
   ```
+
 </details>
 
 ## Abstract
