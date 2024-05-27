@@ -32,10 +32,23 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
         - [2.5.3 Incremental Team Optimization Approach](#253-incremental-team-optimization-approach)
     - [2.6 Conclusion](#26-conclusion)
 - [3. Implementation](#3-implementation)
+    - [3.1 Battle Simulation](#31-battle-simulation)
+        - [3.1.1 Pokemon Class](#311-pokemon-class)
+        - [3.1.2 Team Class](#312-team-class)
+        - [3.1.3 Battle Class](#313-battle-class)
+    - [3.2 Graph Theory Algorithms](#32-graph-theory-algorithms)
+        - [3.2.1 Directed Graph Functions](#321-directed-graph-functions)
+        - [3.2.2 Dominating Sets](#322-dominating-sets)
+        - [3.2.3 Finding Kings](#323-finding-kings)
+        - [3.2.4 Ranking Metrics](#324-ranking-metrics)
+        - [3.2.5 Community Detection](#325-community-detection)
+    - [3.3 Iterative Algorithm](#33-iterative-algorithm)
+    - [3.4 Incremental Team Optimization](#34-incremental-team-optimization)
 - [4. Results](#4-results)
 - [5. Discussion](#5-discussion)
 - [6. Conclusion](#6-conclusion)
 - [7. References](#7-references)
+
 
 ## 1. Introduction
 For many, unlike myself, Pokémon was their first portal into the realm of gaming. Pokemon is set in a world where you and the namegiving creatures, Pokemon, are best friends. You can catch Pokemon, battle them and conquer the rankings to become Pokemon master. The only catch is, at any point you may only be with a team of six pokemon. Only very little gaming franchises manage to keep such a large fanbase content over so many years of creating new and unique pokemon. Whats their secret to this success? Could it be that the game developers meticulously balanced every pokemon in such a way that it can be viable in certain usecases and team constellations? To test this hyptothesis I was tasked with finding a significantly better Pokemon team than the rest. This is not only an interesting question for many enthusiasts all over the world but also presents a rich field for computational analysis.
