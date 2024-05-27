@@ -516,118 +516,118 @@ Given the computational complexity of simulating battles for full 6v6 teams, we 
 Since showing all examples would be a bit much I will just use the case from teams of size 3 to teams of size 4 as an example:
 #### Prediction from triples to Quadruples
     
-```Python
-def fuse_to_quadruples(ranked_results_df):
-    ranked_results = {tuple(sorted(map(int, row[:3]))): row[3] for row in ranked_results_df.to_numpy()}
-    tuple_set = set(ranked_results.keys())
-    quadruples = {}
-    counts = {}
-    
-    # Check each pair of triples
-    for idx1, avg_score1 in ranked_results.items():
-        for idx2, avg_score2 in ranked_results.items():
-            if idx1 != idx2:
-                shared_ids = tuple(set(idx1).intersection(idx2))
-                if len(shared_ids) == 2:  # Two IDs shared between the triples
-                    all_ids = sorted(set(idx1).union(set(idx2)))
-                    if len(all_ids) == 4:  # We're forming a quadruple
-                        # Create all combinations of triples from the four IDs
-                        all_triples = list(combinations(all_ids, 3))
-                        # Verify all necessary triples exist
-                        if all(triple in tuple_set for triple in all_triples):
-                            quad_key = tuple(all_ids)
-                            total_score = avg_score1 + avg_score2
-                            # Add scores for the other two triples
-                            for triple in all_triples:
-                                if triple not in (idx1, idx2):
-                                    total_score += ranked_results.get(triple, 0)
-                            quadruples[quad_key] = quadruples.get(quad_key, 0) + total_score
-                            counts[quad_key] = counts.get(quad_key, 0) + 1
-
-    # Average the scores for each quadruple
-    for quad_key in quadruples:
-        quadruples[quad_key] /= counts[quad_key]
-
-    if quadruples:
-        sorted_quadruples = sorted(quadruples.items(), key=lambda item: item[1], reverse=True)
-        quadruples_df = pd.DataFrame(sorted_quadruples, columns=['IDs', 'Average'])
-        quadruples_df[['ID1', 'ID2', 'ID3', 'ID4']] = pd.DataFrame(quadruples_df['IDs'].tolist(), index=quadruples_df.index)
-        quadruples_df.drop('IDs', axis=1, inplace=True)
-        quadruples_df = quadruples_df[['ID1', 'ID2', 'ID3', 'ID4', 'Average']]
-    else:
-        # Create an empty DataFrame with the correct columns if no quadruples exist
-        quadruples_df = pd.DataFrame(columns=['ID1', 'ID2', 'ID3', 'ID4', 'Average'])
-
-    return quadruples_df
-
-def main():
-    triples_sorted = pd.read_csv('./tuples/triples_sorted.csv')
-    quadruples_df = fuse_to_quadruples(triples_sorted)
-    if not quadruples_df.empty:
-        quadruples_df['ID1'] = quadruples_df['ID1'].astype(int)
-        quadruples_df['ID2'] = quadruples_df['ID2'].astype(int)
-        quadruples_df['ID3'] = quadruples_df['ID3'].astype(int)
-        quadruples_df['ID4'] = quadruples_df['ID4'].astype(int)
-    quadruples_df.to_csv('./tuples/quadruples_predict.csv', index=False)
-    print(f"Saved sorted fused quadruples to './tuples/quadruples_predict.csv', total count: {len(quadruples_df)}")
-
-if __name__ == "__main__":
-    main()
-```
-
-#### Simulation of Quadruples
-
-```Python
-def generate_random_teams(num_teams, team_size=4):
-    teams = []
-    for _ in range(num_teams):
-        team = Team.Team(team_size=team_size)
-        teams.append(team)
-    return teams
-
-def main():
-    # Load the quadruples data from CSV
-    quadruples_df = pd.read_csv('./tuples/quadruples_predict.csv')
-
-    num_battles = 10
-    num_opps = 100  # Total number of random opponents
-
-    job_index = int(sys.argv[1])  # Job array index from command line argument
-    chunk_size = 10  # Number of teams each job should process
-    start_index = (job_index - 1) * chunk_size
-    end_index = min(job_index * chunk_size, num_opps)
-
-    random_teams = generate_random_teams(num_opps, team_size=4)
-
-    # Create an empty results matrix
-    results_matrix = np.zeros((len(quadruples_df), end_index - start_index))
-
-    # Directory to save the matrices
-    output_dir = './output/quadruples_results'
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    # Save the partial results matrix for this chunk
-    file_path = os.path.join(output_dir, f"results_matrix_chunk_{job_index}.csv")
-
-    for i, row in enumerate(quadruples_df.itertuples()):
-        team1 = Team.Team(row.ID1, row.ID2, row.ID3, row.ID4, team_size=4)
-        for j, team2 in enumerate(random_teams[start_index:end_index], start=start_index):
-            total_score = 0
-            for _ in range(num_battles):
-                result = Battle.teamBattle(team1, team2)
-                total_score += result
-                team1.reset()
-                team2.reset()
-            results_matrix[i, j - start_index] = total_score / num_battles
-
-    # Constructing the DataFrame for the results with ID1, ID2, ID3, ID4, and corresponding team results
-    ids_and_results_df = pd.concat([quadruples_df[['ID1', 'ID2', 'ID3', 'ID4']], pd.DataFrame(results_matrix, columns=[f"team_{j}" for j in range(start_index, end_index)])], axis=1)
-    ids_and_results_df.to_csv(file_path, index=False, index_label='ID')
-
-if __name__ == "__main__":
-    main()
-```
+        ```Python
+        def fuse_to_quadruples(ranked_results_df):
+            ranked_results = {tuple(sorted(map(int, row[:3]))): row[3] for row in ranked_results_df.to_numpy()}
+            tuple_set = set(ranked_results.keys())
+            quadruples = {}
+            counts = {}
+            
+            # Check each pair of triples
+            for idx1, avg_score1 in ranked_results.items():
+                for idx2, avg_score2 in ranked_results.items():
+                    if idx1 != idx2:
+                        shared_ids = tuple(set(idx1).intersection(idx2))
+                        if len(shared_ids) == 2:  # Two IDs shared between the triples
+                            all_ids = sorted(set(idx1).union(set(idx2)))
+                            if len(all_ids) == 4:  # We're forming a quadruple
+                                # Create all combinations of triples from the four IDs
+                                all_triples = list(combinations(all_ids, 3))
+                                # Verify all necessary triples exist
+                                if all(triple in tuple_set for triple in all_triples):
+                                    quad_key = tuple(all_ids)
+                                    total_score = avg_score1 + avg_score2
+                                    # Add scores for the other two triples
+                                    for triple in all_triples:
+                                        if triple not in (idx1, idx2):
+                                            total_score += ranked_results.get(triple, 0)
+                                    quadruples[quad_key] = quadruples.get(quad_key, 0) + total_score
+                                    counts[quad_key] = counts.get(quad_key, 0) + 1
+        
+            # Average the scores for each quadruple
+            for quad_key in quadruples:
+                quadruples[quad_key] /= counts[quad_key]
+        
+            if quadruples:
+                sorted_quadruples = sorted(quadruples.items(), key=lambda item: item[1], reverse=True)
+                quadruples_df = pd.DataFrame(sorted_quadruples, columns=['IDs', 'Average'])
+                quadruples_df[['ID1', 'ID2', 'ID3', 'ID4']] = pd.DataFrame(quadruples_df['IDs'].tolist(), index=quadruples_df.index)
+                quadruples_df.drop('IDs', axis=1, inplace=True)
+                quadruples_df = quadruples_df[['ID1', 'ID2', 'ID3', 'ID4', 'Average']]
+            else:
+                # Create an empty DataFrame with the correct columns if no quadruples exist
+                quadruples_df = pd.DataFrame(columns=['ID1', 'ID2', 'ID3', 'ID4', 'Average'])
+        
+            return quadruples_df
+        
+        def main():
+            triples_sorted = pd.read_csv('./tuples/triples_sorted.csv')
+            quadruples_df = fuse_to_quadruples(triples_sorted)
+            if not quadruples_df.empty:
+                quadruples_df['ID1'] = quadruples_df['ID1'].astype(int)
+                quadruples_df['ID2'] = quadruples_df['ID2'].astype(int)
+                quadruples_df['ID3'] = quadruples_df['ID3'].astype(int)
+                quadruples_df['ID4'] = quadruples_df['ID4'].astype(int)
+            quadruples_df.to_csv('./tuples/quadruples_predict.csv', index=False)
+            print(f"Saved sorted fused quadruples to './tuples/quadruples_predict.csv', total count: {len(quadruples_df)}")
+        
+        if __name__ == "__main__":
+            main()
+        ```
+        
+        #### Simulation of Quadruples
+        
+        ```Python
+        def generate_random_teams(num_teams, team_size=4):
+            teams = []
+            for _ in range(num_teams):
+                team = Team.Team(team_size=team_size)
+                teams.append(team)
+            return teams
+        
+        def main():
+            # Load the quadruples data from CSV
+            quadruples_df = pd.read_csv('./tuples/quadruples_predict.csv')
+        
+            num_battles = 10
+            num_opps = 100  # Total number of random opponents
+        
+            job_index = int(sys.argv[1])  # Job array index from command line argument
+            chunk_size = 10  # Number of teams each job should process
+            start_index = (job_index - 1) * chunk_size
+            end_index = min(job_index * chunk_size, num_opps)
+        
+            random_teams = generate_random_teams(num_opps, team_size=4)
+        
+            # Create an empty results matrix
+            results_matrix = np.zeros((len(quadruples_df), end_index - start_index))
+        
+            # Directory to save the matrices
+            output_dir = './output/quadruples_results'
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir)
+        
+            # Save the partial results matrix for this chunk
+            file_path = os.path.join(output_dir, f"results_matrix_chunk_{job_index}.csv")
+        
+            for i, row in enumerate(quadruples_df.itertuples()):
+                team1 = Team.Team(row.ID1, row.ID2, row.ID3, row.ID4, team_size=4)
+                for j, team2 in enumerate(random_teams[start_index:end_index], start=start_index):
+                    total_score = 0
+                    for _ in range(num_battles):
+                        result = Battle.teamBattle(team1, team2)
+                        total_score += result
+                        team1.reset()
+                        team2.reset()
+                    results_matrix[i, j - start_index] = total_score / num_battles
+        
+            # Constructing the DataFrame for the results with ID1, ID2, ID3, ID4, and corresponding team results
+            ids_and_results_df = pd.concat([quadruples_df[['ID1', 'ID2', 'ID3', 'ID4']], pd.DataFrame(results_matrix, columns=[f"team_{j}" for j in range(start_index, end_index)])], axis=1)
+            ids_and_results_df.to_csv(file_path, index=False, index_label='ID')
+        
+        if __name__ == "__main__":
+            main()
+        ```
 
 </details>
 
