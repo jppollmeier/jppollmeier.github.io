@@ -1,6 +1,3 @@
----
----
-
 # Best Pokémon Team
 # Colored Text Example
 
