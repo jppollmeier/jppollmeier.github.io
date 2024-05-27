@@ -530,7 +530,7 @@ Given the computational complexity of simulating battles for full 6v6 teams, we 
 6. **Repeat**: Continue the process, increasing the team size by one each iteration until reaching teams of size 6.
 
 <details>
-  <summary><p style="color: red;">Code Incermental Team Optimization</p></summary>
+  <summary> <p style="color: red;"> Code Incermental Team Optimization </p> </summary>
     
 ---
 Since showing all examples would be a bit much I will just use the case from teams of size 3 to teams of size 4 as an example:
