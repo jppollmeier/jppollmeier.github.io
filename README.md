@@ -6,7 +6,7 @@
 <p style="color: blue;">This is blue text.</p>
 
 <details>
-
+   
 <summary>Tips for collapsed sections</summary>
 
 ### You can add a header
