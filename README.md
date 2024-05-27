@@ -10,6 +10,13 @@
   
   <!-- Content goes here -->
   This is the collapsible content.
+
+
+  ```Python
+  x = 2
+  ```
+
+
 </details>
 
 ## Abstract
