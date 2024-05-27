@@ -133,11 +133,6 @@ This also meant that I finally needed to take advantage the computing cluster, w
 My supervisor provided me with the flexibility to explore several approaches, as there is no clear best way to tackle such a complex optimization problem. This allowed me to be dynamic and adaptive with my research, enabling me to experiment with graph theoretical methods, iterative techniques, and simulation-based evaluations, leading to a more exploratory and on the go process.
 
 
-
-
-~~#### The actual Algorithms
-Now I am going to introduce you to the heart of this thesis which all prior pokemon subset selection lead up to. The algorithm works by looking the individually top performing 6 pokemon and the respective team they form. This is our baseline which needs to be beaten. Over a great number of battles I tested their performance and estimated their win probability against a random team. Now we make a selection of teams from our candidate pool making sure each pokemon gets selected at least once. Then the simulation process starts and we divide the teams into two groups based on our findings. Teams who significantly performed better than our baseline are here to stay while the rest gets discarded. We perform a union over the pokemon of the teams which stay and do not adjust the opponent pool?~~
-
 ## 3. Implementation
 In this implementation section, I will over the key components behind the different approaches. While I won't cover every detail here, those interested in the full implementation can have a look at the code, which is in the GitHub repository. [^2] One thing you will often see is the conversion from .csv files into dictionaries due to them being faster. Generally everything that can be precomputed is precomputed.
 
