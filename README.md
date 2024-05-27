@@ -47,7 +47,8 @@
     </footer>
   </body>
   </html>
-
+</details>
+```
 
 ## Abstract
 
