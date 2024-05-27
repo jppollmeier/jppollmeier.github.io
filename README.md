@@ -5,6 +5,12 @@
 <p style="color: green;">This is green text.</p>
 <p style="color: blue;">This is blue text.</p>
 
+<details>
+  <summary>Click to expand</summary>
+  
+  <!-- Content goes here -->
+  This is the collapsible content.
+</details>
 
 ## Abstract
 
