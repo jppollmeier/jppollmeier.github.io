@@ -39,6 +39,15 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
     - [3.3 Iterative Algorithm](#33-iterative-algorithm)
     - [3.4 Incremental Team Optimization](#34-incremental-team-optimization)
 - [4. Results](#4-results)
+    - [4.1 Results Battle Simulation](#41-battle-simulation)
+    - [4.2 Graph Theory Algorithms](#42-graph-theory-algorithms)
+        - [4.2.1 Directed Graph Functions](#421-directed-graph-functions)
+        - [4.2.2 Dominating Sets](#422-dominating-sets)
+        - [4.2.3 Finding Kings](#423-finding-kings)
+        - [4.2.4 Ranking Metrics](#424-ranking-metrics)
+        - [4.2.5 Community Detection](#425-community-detection)
+    - [4.3 Iterative Algorithm](#43-iterative-algorithm)
+    - [4.4 Incremental Team Optimization](#44-incremental-team-optimization)
 - [5. Discussion](#5-discussion)
 - [6. Conclusion](#6-conclusion)
 - [7. References](#7-references)
@@ -657,11 +666,16 @@ Since showing all examples would be a bit much I will just use the case from tea
 </details>
 
 ## 4. Results
-### Introduction to the Results Section
+The results section of this thesis presents an analysis of the various methodologies employed to identify the optimal Pokémon team. Each attempted approach is revisited in detail, showcasing the findings through a series of images, graphs, and tables to illustrate the performance of different team configurations. The primary goal is to evaluate the effectiveness of each strategy and to highlight the insights gained from these analyses.
 
-The results section of this thesis presents a comprehensive analysis of the various methodologies employed to identify the optimal Pokémon team. Each attempted approach is revisited in detail, showcasing the findings through a series of images, graphs, and tables to illustrate the performance of different team configurations. The primary goal is to evaluate the effectiveness of each strategy and to highlight the insights gained from these analyses.
+### 4.1 Results Battle Simulation
+While the battle simulation results do not directly pinpoint the optimal Pokémon team, they offer valuable insights into the performance characteristics and interactions of different team configurations. These findings lay the groundwork for more targeted analyses and highlight the complexity of the optimization problem. The visualizations included in this section help convey the nuances of the data, offering a clear view of the underlying dynamics at play and is a fun visualization for Pokémon fanatics.
 
-We begin by exploring the performance of individual Pokémon, followed by the assessment of pairs, and incrementally build towards full six-member teams. Throughout this journey, we utilize simulation data to validate the predictions made by our models and to identify any discrepancies between predicted and actual performances. This iterative process involves:
+By exploring these results, we gain a deeper appreciation of the challenges and potential strategies for building effective Pokémon teams. This section serves as a crucial step in our overall analysis, bridging the gap between theoretical models and practical performance.
+
+![Fist 10 Pokémon Win Probability](Figure1000_10.png)
+![Fist Generatoin Pokémon Win Probability](Figure1000_151.png)
+![Graph Win Probabiliy](Graph1000_10.png)
 
 1. **Graph Theory Algorithms with NetworkX**: We utilized various functions from the NetworkX library, such as DiGraph, dominating sets, centrality measures, and community detection, to analyze the structure and performance of Pokémon teams within graph representations.
 2. **Incremental Team Optimization**: This approach involved iteratively improving team compositions by evaluating smaller subsets of Pokémon, expanding them progressively, and validating their performance through extensive simulations.
@@ -675,8 +689,7 @@ Each section includes detailed results, supported by visualizations such as tabl
 In addition to presenting the results, we also discuss any unexpected outcomes and the implications of our findings for future research. Limitations encountered during the study are addressed, and potential directions for further investigation are suggested.
 
 By systematically reviewing each attempted strategy and presenting the results with clarity, this section aims to provide a thorough understanding of the incremental team optimization process and its efficacy in identifying the best Pokémon teams.
-![Test](Figure1000_10.png)
-![Test](Graph1000_10.png)
+
 
 ## 5. Discussion
 
