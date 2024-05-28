@@ -1,4 +1,3 @@
-# Best Pokémon Team
 # Colored Text Example
 
 <p style="color: red;">This is red text.</p>
