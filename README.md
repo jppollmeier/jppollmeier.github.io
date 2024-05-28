@@ -694,11 +694,11 @@ In this section, we delve into the application of graph theory to analyze the in
 #### 4.2.1 Dominating Sets
 Using our functions for dominating sets we find the following dominating sets in the first 151 Pokémon:
 
-`out_degree_dominating_set(G)`: `{'Snorlax', 'Mewtwo', 'Dragonite'}`
+`out_degree_dominating_set(G)`: ```{'Snorlax', 'Mewtwo', 'Dragonite'}```
 
-`brute_find_dominating_sets(G)`: `[{'Dragonite', 'Gengar', 'Snorlax'}, {'Dragonite', 'Mewtwo', 'Snorlax'}]`
+`brute_find_dominating_sets(G)`: ```[{'Dragonite', 'Gengar', 'Snorlax'}, {'Dragonite', 'Mewtwo', 'Snorlax'}]```
 
-`nx.dominating_set(G)`: `{'Alakazam', 'Mew', 'Krabby', 'Zapdos', 'Tentacool', 'Poliwrath', 'Dugtrio', 'Pinsir', 'Magneton', 'Golduck', 'Tentacruel', 'Starmie', 'Omastar', 'Mewtwo', 'Exeggutor', 'Dragonite', 'Haunter}`
+`nx.dominating_set(G)`: ```{'Alakazam', 'Mew', 'Krabby', 'Zapdos', 'Tentacool', 'Poliwrath', 'Dugtrio', 'Pinsir', 'Magneton', 'Golduck', 'Tentacruel', 'Starmie', 'Omastar', 'Mewtwo', 'Exeggutor', 'Dragonite', 'Haunter}```
 (Although different results are achieved due to randomness in it's implementation the functions implemented by myself are a lot quicker in the case of the `out_degree_dominating_set(G)` function and find a smaller subset in both of my implemented functions)
 
 
