@@ -458,6 +458,7 @@ This will be the most uninteresting implementation-section since most of the gra
     - `betweenness = nx.betweenness_centrality(G)`
     - `closeness = nx.closeness_centrality(G)`
 
+
 #### 3.2.5 Community Detection:
   - Detected communities within the undirected graph using `communities = nx.algorithms.community.louvain_communities(G_undirected)` to explore relationships among Pokémon.
 
@@ -697,7 +698,21 @@ Using our functions for dominating sets we find the following dominating sets in
 `brute_find_dominating_sets(G)`: ```[{'Dragonite', 'Gengar', 'Snorlax'}, {'Dragonite', 'Mewtwo', 'Snorlax'}]```  
 `nx.dominating_set(G)`: ```{'Alakazam', 'Mew', 'Krabby', 'Zapdos', 'Tentacool', 'Poliwrath', 'Dugtrio', 'Pinsir', 'Magneton', 'Golduck', 'Tentacruel', 'Starmie', 'Omastar', 'Mewtwo', 'Exeggutor', 'Dragonite', 'Haunter}```  
 
-(Although different results are achieved due to randomness in it's implementation the functions implemented by myself are a lot quicker in the case of the `out_degree_dominating_set(G)` function and find a smaller subset in both of my implemented functions)
+(Although different results are achieved due to randomness in its implementation the functions implemented by myself are a lot quicker in the case of the `out_degree_dominating_set(G)` function and find a smaller subset in both of my implemented functions)
+
+
+#### 4.2.2 Finding Kings
+
+#### 4.2.3 Ranking Metrics
+Now, we will go over the different ranking metrics used to analyze Pokémon performance within the graph. The metrics include in-degree centrality, out-degree centrality, PageRank, HITS (hubs and authorities), betweenness centrality, and closeness centrality. Additionally, we introduced two new combined degree metrics, defined as \((1 - \text{in\_degree}) \times \text{out\_degree}\) and \((1 - \text{authorities}) \times \text{hubs}\) to account for both how often a Pokémon gets beaten (in-degree) and how often it beats others (out-degree) or, in the case of hubs and authorities, their influence and authority within the network.
+
+in_degree = nx.in_degree_centrality(G)
+out_degree = nx.out_degree_centrality(G)
+page_rank = nx.pagerank(G)
+hubs, authorities = nx.hits(G)  # This returns two separate dictionaries
+betweenness = nx.betweenness_centrality(G)
+closeness = nx.closeness_centrality(G)
+
 
 
 
