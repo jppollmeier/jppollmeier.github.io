@@ -381,14 +381,14 @@ This will be the most uninteresting implementation-section since most of the gra
 #### 3.2.2 Dominating Sets:
   - Utilized `nx.dominating_set(G)` to find dominating sets. The problem of finding smallest dominating sets is NP-Hard and only bruteforcable for smaller subsets of all pokemon. The following codes do this in a naive brute force way and attemt to find a dominating set using the nodes ranked by out-degree:
     ```python
-    def brute_find_dominating_sets(G):
+    def brute_find_dominating_set(G):
         nodes = list(G.nodes())
         for i in range(1, len(nodes) + 1):
             for subset in itertools.combinations(nodes, i):
                 if nx.is_dominating_set(G, subset):
                     return set(subset)
             
-    def find_dominating_set(G):
+    def out_degree_dominating_set(G):
         sorted_nodes = sorted(G.nodes(), key=lambda x: G.out_degree(x), reverse=True)
         
         S = set()
