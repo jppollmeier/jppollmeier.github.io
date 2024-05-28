@@ -676,6 +676,7 @@ In addition to presenting the results, we also discuss any unexpected outcomes a
 
 By systematically reviewing each attempted strategy and presenting the results with clarity, this section aims to provide a thorough understanding of the incremental team optimization process and its efficacy in identifying the best Pokémon teams.
 ![Test](Figure1000_10.png)
+![Test](Graph1000_10.png)
 
 ## 5. Discussion
 
