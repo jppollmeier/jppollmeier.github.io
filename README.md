@@ -569,7 +569,7 @@ Since showing all examples would be a bit much I will just use the case from tea
             main()
 ```
         
-        #### Simulation of Quadruples
+#### Simulation of Quadruples
         
 ```Python
         def generate_random_teams(num_teams, team_size=4):
