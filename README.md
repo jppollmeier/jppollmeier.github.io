@@ -702,8 +702,8 @@ Next, we will compare how closely these metrics align with the original ranking 
 ```python
     betweenness centrality: 0.2720181247821541, p-value: 0.0007280796914497713
     closeness centrality: 0.9620529801324503, p-value: 6.1217326866798976e-86
-    combined-degree: 0.9949459742070408, p-value: 1.2096218790368847e-150
-    combined-HITS: 0.9842732659463226, p-value: 4.3882539044900354e-114
+    combined degree: 0.9949459742070408, p-value: 1.2096218790368847e-150
+    combined hits: 0.9842732659463226, p-value: 4.3882539044900354e-114
     pagerank: 0.9650714534681073, p-value: 1.4239088620702192e-88
 ```
 
