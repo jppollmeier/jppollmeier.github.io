@@ -376,10 +376,23 @@ The Battle class manages battles between two teams of Pokémon, handling individ
 This will be the most uninteresting implementation-section since most of the graph theory algorithms were implemented using the NetworkX library and only little adjustements or loops have been employed. Key algorithms and methods used include:
 
 #### 3.2.1 Directed Graph Functions:
-  - Created directed graphs (`G`) from Pokémon battle outcomes, adding edges between Pokémon A and B if A beats B with a probability \( p \geq 0.9 \).
-
+  - Created directed graphs (`G`) from Pokémon battle outcomes, adding edges between Pokémon A and B if A beats B with a probability e.g. >= 0.9.
+    ```python
+    # Create a directed graph
+    G = nx.DiGraph()
+    
+    # Add nodes (Pokémon species)
+    for species in df.index:
+        G.add_node(species)
+    
+    # Add edges with winning probabilities as weights
+    for i, row in df.iterrows():
+        for j, prob in row.items():
+            if i != j and prob >= 0.9:
+                G.add_edge(i, j, weight=prob)
+    ```
 #### 3.2.2 Dominating Sets:
-  - Utilized `nx.dominating_set(G)` to find dominating sets. The problem of finding smallest dominating sets is NP-Hard and only bruteforcable for smaller subsets of all pokemon. The following codes do this in a naive brute force way and attemt to find a dominating set using the nodes ranked by out-degree:
+  - Utilized `nx.dominating_set(G)` to find dominating sets. The problem of finding smallest dominating sets is NP-Hard and only bruteforcable for smaller subsets of all pokemon. The following codes do this in a naive brute force way and attemt to find a dominating set using the nodes ranked descendingly by out-degree:
     ```python
     def brute_find_dominating_set(G):
         nodes = list(G.nodes())
