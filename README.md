@@ -693,7 +693,8 @@ Using our functions for dominating sets we find the following dominating sets in
 #### 4.2.2 Finding Kings
 
 #### 4.2.3 Ranking Metrics
-Now, we will go over the different ranking metrics used to analyze Pokémon performance within the graph. The metrics include in-degree centrality, out-degree centrality, PageRank, HITS (hubs and authorities), betweenness centrality, and closeness centrality. Additionally, we introduced two new combined degree metrics, defined as $ \((1 - \text(in_degree)) \times \text(out_degree) and  \((1 - \text(authorities) \times  \text(hubs) $ to account for both how often a Pokémon gets beaten (in-degree) and how often it beats others (out-degree) or, in the case of hubs and authorities, their influence and authority within the network.
+Now, we will go over the different ranking metrics used to analyze Pokémon performance within the graph. The metrics include in-degree centrality, out-degree centrality, PageRank, HITS (hubs and authorities), betweenness centrality, and closeness centrality. Additionally, we introduced two new combined degree metrics, defined as $\((1 - \text{in\_degree}) \times \text{out\_degree}\) and \((1 - \text{authorities}) \times \text{hubs}\)
+$ to account for both how often a Pokémon gets beaten (in-degree) and how often it beats others (out-degree) or, in the case of hubs and authorities, their influence and authority within the network.
 
 Upon analyzing the different ranking metrics, it is observed that most of them—such as combined degree centrality, PageRank, and the combined HITS yield quite similar rankings. This similarity indicates that these metrics consistently identify the same top-performing Pokémon. However, betweenness centrality stands out as it provides more insight into how connected a Pokémon is. This distinct focus on connectivity is expected, as betweenness centrality measures the extent to which a Pokémon acts as a bridge within the network.
 
