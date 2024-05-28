@@ -510,7 +510,7 @@ Given the computational complexity of simulating battles for full 6v6 teams, we 
 Since showing all examples would be a bit much I will just use the case from teams of size 3 to teams of size 4 as an example:
 #### Prediction from triples to Quadruples
     
-        ```Python
+```Python
         def fuse_to_quadruples(ranked_results_df):
             ranked_results = {tuple(sorted(map(int, row[:3]))): row[3] for row in ranked_results_df.to_numpy()}
             tuple_set = set(ranked_results.keys())
@@ -567,11 +567,11 @@ Since showing all examples would be a bit much I will just use the case from tea
         
         if __name__ == "__main__":
             main()
-        ```
+```
         
         #### Simulation of Quadruples
         
-        ```Python
+```Python
         def generate_random_teams(num_teams, team_size=4):
             teams = []
             for _ in range(num_teams):
@@ -621,8 +621,7 @@ Since showing all examples would be a bit much I will just use the case from tea
         
         if __name__ == "__main__":
             main()
-        ```
-
+```
 </details>
 
 ---
