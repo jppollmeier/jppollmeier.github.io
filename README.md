@@ -623,9 +623,6 @@ Since showing all examples would be a bit much I will just use the case from tea
 ```
 </details>
 
----
-###TODO
----
 ## 4. Results
 ### Introduction to the Results Section
 
