@@ -647,7 +647,7 @@ Each section includes detailed results, supported by visualizations such as tabl
 In addition to presenting the results, we also discuss any unexpected outcomes and the implications of our findings for future research. Limitations encountered during the study are addressed, and potential directions for further investigation are suggested.
 
 By systematically reviewing each attempted strategy and presenting the results with clarity, this section aims to provide a thorough understanding of the incremental team optimization process and its efficacy in identifying the best Pokémon teams.
-![Test](./Figure_1000_10.png)
+![Test](Figure1000_10.png)
 
 ## 5. Discussion
 
