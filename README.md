@@ -39,7 +39,7 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
     - [3.3 Iterative Algorithm](#33-iterative-algorithm)
     - [3.4 Incremental Team Optimization](#34-incremental-team-optimization)
 - [4. Results](#4-results)
-    - [4.1 Results Battle Simulation](#41-battle-simulation)
+    - [4.1 Results Battle Simulation](#41-results-battle-simulation)
     - [4.2 Graph Theory Algorithms](#42-graph-theory-algorithms)
         - [4.2.1 Directed Graph Functions](#421-directed-graph-functions)
         - [4.2.2 Dominating Sets](#422-dominating-sets)
