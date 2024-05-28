@@ -1,29 +1,4 @@
 # Best Pokémon Team
-# Colored Text Example
-
-<p style="color: red;">This is red text.</p>
-<p style="color: green;">This is green text.</p>
-<p style="color: blues;">This is blue text.</p>
-
-<details>
-  
-  <summary>Click me</summary>
-  
-  ### Heading
-  1. Foo
-  2. Bar
-     * Baz
-     * Qux
-
-  ### Some Javascript
-  
-  ```js
-  function logSomething(something) {
-    console.log('Something', something);
-  }
-  ```
-
-</details>
 
 ## Abstract
 
@@ -654,7 +629,24 @@ Since showing all examples would be a bit much I will just use the case from tea
 ###TODO
 ---
 ## 4. Results
+### Introduction to the Results Section
 
+The results section of this thesis presents a comprehensive analysis of the various methodologies employed to identify the optimal Pokémon team. Each attempted approach is revisited in detail, showcasing the findings through a series of images, graphs, and tables to illustrate the performance of different team configurations. The primary goal is to evaluate the effectiveness of each strategy and to highlight the insights gained from these analyses.
+
+We begin by exploring the performance of individual Pokémon, followed by the assessment of pairs, and incrementally build towards full six-member teams. Throughout this journey, we utilize simulation data to validate the predictions made by our models and to identify any discrepancies between predicted and actual performances. This iterative process involves:
+
+1. **Graph Theory Algorithms with NetworkX**: We utilized various functions from the NetworkX library, such as DiGraph, dominating sets, centrality measures, and community detection, to analyze the structure and performance of Pokémon teams within graph representations.
+2. **Incremental Team Optimization**: This approach involved iteratively improving team compositions by evaluating smaller subsets of Pokémon, expanding them progressively, and validating their performance through extensive simulations.
+3. **Fusion-Based Team Building**: Starting from pairs, we incrementally formed larger teams based on shared members and performance predictions, continually refining our selections through simulated battles.
+4. **Iterative Best Team Approach**: Utilizing a combination of random sampling and performance-based selection, this method aimed to identify the best-performing teams through a series of iterative simulations and evaluations.
+5. **Predictive Performance Models**: We developed models to predict team performance based on individual and smaller team metrics, aiming to reduce computational demands by focusing on promising team configurations.
+6. **Cluster Simulations**: To handle the computational complexity, we employed cluster computing resources, enabling us to run large-scale simulations and obtain robust performance data for extensive team combinations.
+
+Each section includes detailed results, supported by visualizations such as tables and figures, to provide clear and concise representations of the data. These visual aids are crucial for understanding the progression of team optimization and the relative performance of different team configurations.
+
+In addition to presenting the results, we also discuss any unexpected outcomes and the implications of our findings for future research. Limitations encountered during the study are addressed, and potential directions for further investigation are suggested.
+
+By systematically reviewing each attempted strategy and presenting the results with clarity, this section aims to provide a thorough understanding of the incremental team optimization process and its efficacy in identifying the best Pokémon teams.
 
 ## 5. Discussion
 
