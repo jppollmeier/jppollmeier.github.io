@@ -697,14 +697,15 @@ Now, we will go over the different ranking metrics used to analyze Pokémon perf
 
 Upon analyzing the different ranking metrics, it is observed that most of them—such as combined degree centrality, PageRank, and the combined HITS yield quite similar rankings. This similarity indicates that these metrics consistently identify the same top-performing Pokémon. However, betweenness centrality stands out as it provides more insight into how connected a Pokémon is. This distinct focus on connectivity is expected, as betweenness centrality measures the extent to which a Pokémon acts as a bridge within the network.
 
-Next, we will compare how closely these metrics align with the original ranking based on the Pokémon's win probabilities. This comparison will highlight the effectiveness and reliability of these graph theory metrics in reflecting the actual performance outcomes observed in battle simulations.
+Next, we will compare how closely these metrics align with the original ranking based on the Pokémon's win probabilities. This comparison will highlight the effectiveness and reliability of these graph theory metrics in reflecting the actual performance outcomes observed in battle simulations. For this we will employ the Spearman's rank correlation coefficient when comparing ranks of the battles win probability and the named ranking metrics. We observe the following results:
 
-in_degree = nx.in_degree_centrality(G)
-out_degree = nx.out_degree_centrality(G)
-page_rank = nx.pagerank(G)
-hubs, authorities = nx.hits(G)  # This returns two separate dictionaries
-betweenness = nx.betweenness_centrality(G)
-closeness = nx.closeness_centrality(G)
+```python
+    betweenness centrality: 0.2720181247821541, p-value: 0.0007280796914497713
+    closeness centrality: 0.9620529801324503, p-value: 6.1217326866798976e-86
+    combined degree: 0.9949459742070408, p-value: 1.2096218790368847e-150
+    combined HITS: 0.9842732659463226, p-value: 4.3882539044900354e-114
+    pagerank: 0.9650714534681073, p-value: 1.4239088620702192e-88
+```
 
 
 
