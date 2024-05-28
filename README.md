@@ -455,10 +455,9 @@ This will be the most uninteresting implementation-section since most of the gra
     - `out_degree = nx.out_degree_centrality(G)`
     - `page_rank = nx.pagerank(G)`
     - `hubs, authorities = nx.hits(G)`
-    - `betweenness = nx.betweenness_centrality(G)`
+    - `betweenness = nx.betweenness_centrality(G)` 
     - `closeness = nx.closeness_centrality(G)`
-
-
+I would like to acknowledge Professor Ulrik Brandes for their development of the NetworkX betweenness centrality function, which I have taken courses of.[^4]
 #### 3.2.5 Community Detection:
   - Detected communities within the undirected graph using `communities = nx.algorithms.community.louvain_communities(G_undirected)` to explore relationships among Pokémon.
 
@@ -706,6 +705,10 @@ Using our functions for dominating sets we find the following dominating sets in
 #### 4.2.3 Ranking Metrics
 Now, we will go over the different ranking metrics used to analyze Pokémon performance within the graph. The metrics include in-degree centrality, out-degree centrality, PageRank, HITS (hubs and authorities), betweenness centrality, and closeness centrality. Additionally, we introduced two new combined degree metrics, defined as $\((1 - $in_degree$) \times $out_degree and $\((1 - $authorities$ \times $hubs to account for both how often a Pokémon gets beaten (in-degree) and how often it beats others (out-degree) or, in the case of hubs and authorities, their influence and authority within the network.
 
+Upon analyzing the different ranking metrics, it is observed that most of them—such as combined degree centrality, PageRank, and the combined HITS yield quite similar rankings. This similarity indicates that these metrics consistently identify the same top-performing Pokémon. However, betweenness centrality stands out as it provides more insight into how connected a Pokémon is. This distinct focus on connectivity is expected, as betweenness centrality measures the extent to which a Pokémon acts as a bridge within the network.
+
+Next, we will compare how closely these metrics align with the original ranking based on the Pokémon's win probabilities. This comparison will highlight the effectiveness and reliability of these graph theory metrics in reflecting the actual performance outcomes observed in battle simulations.
+
 in_degree = nx.in_degree_centrality(G)
 out_degree = nx.out_degree_centrality(G)
 page_rank = nx.pagerank(G)
@@ -754,3 +757,4 @@ By systematically reviewing each attempted strategy and presenting the results w
 - List of all sources cited in the thesis
 [^1]: [Kaggle dataset](https://www.kaggle.com/datasets/mylesoneill/pokemon-sun-and-moon-gen-7-stats?select=moves.csv).
 [^2]: [GitHub Repository](Testtest)
+[^4]: [Ein schnellerer Algorithmus für die Betweenness-Zentralität](https://www-tandfonline-com.translate.goog/doi/abs/10.1080/0022250X.2001.9990249?_x_tr_sl=en&_x_tr_tl=de&_x_tr_hl=de&_x_tr_pto=sc)
