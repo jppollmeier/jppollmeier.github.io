@@ -164,8 +164,7 @@ The Pokémon class initializes each Pokémon with its base stats, top moves, and
 - **Retrieve Moves**: Retrieves the top moves for each Pokémon.
 - **Print Stats**: Prints the Pokémon's stats for debugging purposes.
 
-<details>
-  <summary>Code Pokemon Class</summary>
+
     
 ```Python
 class Pokemon:
@@ -308,8 +307,6 @@ class Pokemon:
         print(f"Moves: {self.moves}")
 ```
 
-</details>
-
 
 #### 3.1.2 Team Class
 The Team class initializes a team of Pokémon, ensuring unique Pokédex numbers and filling the team to the required size if necessary:
@@ -322,8 +319,6 @@ The Team class initializes a team of Pokémon, ensuring unique Pokédex numbers 
 - **String Representation**: 
   - Provides a string representation of the team, listing each Pokémon and their base HP for debugging purposes.
 
-<details>
-  <summary>Code Team Class</summary>
     
 ```Python
 class Team:
@@ -357,8 +352,6 @@ class Team:
     def __str__(self):
         return "Team: " + ', '.join((str(pokemon.name) + " " + str(pokemon.bhp)) for pokemon in self.pokemon_team)
 ```
-
-</details>
 
 #### 3.1.3 Battle Class
 
@@ -554,8 +547,6 @@ Given the computational complexity of simulating battles for full 6v6 teams, we 
 5. **Simulate and Compare**: Simulate battles for the larger teams and compare the results with the predictions.
 6. **Repeat**: Continue the process, increasing the team size by one each iteration until reaching teams of size 6.
 
-<details>
-  <summary>Code Incermental Team Optimization</summary>
 
 Since showing all examples would be a bit much I will just use the case from teams of size 3 to teams of size 4 as an example:
 #### Prediction from triples to Quadruples
@@ -672,7 +663,6 @@ Since showing all examples would be a bit much I will just use the case from tea
         if __name__ == "__main__":
             main()
 ```
-</details>
 
 ## 4. Results
 The results section of this thesis presents an analysis of the various methodologies employed to identify the optimal Pokémon team. Each attempted approach is revisited in detail, showcasing the findings through a series of images, graphs, and tables to illustrate the performance of different team configurations. The primary goal is to evaluate the effectiveness of each strategy and to highlight the insights gained from these analyses.
