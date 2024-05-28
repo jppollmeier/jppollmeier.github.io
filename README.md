@@ -40,7 +40,7 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
     - [3.4 Incremental Team Optimization](#34-incremental-team-optimization)
 - [4. Results](#4-results)
     - [4.1 Results Battle Simulation](#41-results-battle-simulation)
-    - [4.2 Graph Theory Algorithms](#42-graph-theory-algorithms)
+    - [4.2 Results Graph Theory Algorithms](#42-results-graph-theory-algorithms)
         - [4.2.1 Directed Graph Functions](#421-directed-graph-functions)
         - [4.2.2 Dominating Sets](#422-dominating-sets)
         - [4.2.3 Finding Kings](#423-finding-kings)
@@ -402,13 +402,23 @@ This will be the most uninteresting implementation-section since most of the gra
     ```
 #### 3.2.2 Dominating Sets:
   - Utilized `nx.dominating_set(G)` to find dominating sets. The problem of finding smallest dominating sets is NP-Hard and only bruteforcable for smaller subsets of all pokemon. The following codes do this in a naive brute force way and attemt to find a dominating set using the nodes ranked descendingly by out-degree:
-    ```python
-    def brute_find_dominating_set(G):
+    ```python 
+    def brute_find_dominating_sets(G):
         nodes = list(G.nodes())
+        dominating_sets = []
+        found_size = None
+        
         for i in range(1, len(nodes) + 1):
+            if found_size is not None and i > found_size:
+                break
             for subset in itertools.combinations(nodes, i):
                 if nx.is_dominating_set(G, subset):
-                    return set(subset)
+                    if found_size is None:
+                        found_size = i
+                    if i == found_size:
+                        dominating_sets.append(set(subset))
+    
+        return dominating_sets
             
     def out_degree_dominating_set(G):
         sorted_nodes = sorted(G.nodes(), key=lambda x: G.out_degree(x), reverse=True)
@@ -674,10 +684,21 @@ While the battle simulation results do not directly pinpoint the optimal Pokémo
 By exploring these results, we gain a deeper appreciation of the challenges and potential strategies for building effective Pokémon teams. This section serves as a crucial step in our overall analysis, bridging the gap between theoretical models and practical performance.
 
 ![Fist 10 Pokémon Win Probability](Figure1000_10.png)
+![Win Probability Charmeleon against first 10 Pokémon](Charmeleon.png)
 ![Fist Generatoin Pokémon Win Probability](Figure1000_151.png)
+
+### 4.2 Results Graph Theory Algorithms
+In this section, we delve into the application of graph theory to analyze the interconnections and performance of Pokémon teams. We begin with a graphic that illustrates the different interconnections within a graph, providing a visual representation of the relationships and interactions between the first 10 Pokémon based on their battle outcomes:
 ![Graph Win Probabiliy](Graph1000_10.png)
 
-1. **Graph Theory Algorithms with NetworkX**: We utilized various functions from the NetworkX library, such as DiGraph, dominating sets, centrality measures, and community detection, to analyze the structure and performance of Pokémon teams within graph representations.
+#### 4.2.1 Dominating Sets
+Using our functions for dominating sets we find the following dominating sets in the first 151 Pokémon:
+
+
+
+
+
+
 2. **Incremental Team Optimization**: This approach involved iteratively improving team compositions by evaluating smaller subsets of Pokémon, expanding them progressively, and validating their performance through extensive simulations.
 3. **Fusion-Based Team Building**: Starting from pairs, we incrementally formed larger teams based on shared members and performance predictions, continually refining our selections through simulated battles.
 4. **Iterative Best Team Approach**: Utilizing a combination of random sampling and performance-based selection, this method aimed to identify the best-performing teams through a series of iterative simulations and evaluations.
