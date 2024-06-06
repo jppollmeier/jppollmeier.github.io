@@ -121,12 +121,12 @@ After finishing up the Graph Theoretical approach of identifying a best Pokemon 
 
 Generally the algorithms used to tackle these problems can be divided into two groups. Firstly Algorithms which have been used to shrink the number of pokemon which might belong into the best pokemon team, lets call this candidate pool, and secondly reducing the number of pokemons which a team can face to give battles some meaning and reduce overall noise, called opponent pool.
 
-Generally the candidate- and opponent pool are assumed to be equal in the beginning with every pokemon being in it. The main practices used to reduce the size of the pools is based upon previous data analysis. Generally the question to answer was can this pokemon be replaced directly by one or more pokemon which are equally as good or better in all its relevant stats. For this I tried several strategies:
+The candidate- and opponent pool are assumed to be equal in the beginning with every pokemon being in it. The main practices used to reduce the size of the pools is based upon previous data analysis. The process of elimination revolved around the question "can this pokemon be replaced directly by one or more pokemon which are equally as good or better in all its relevant stats?". For this I tried several strategies:
 
 ##### Top performing Pokemon by type and Battles
-For each type combination and pokemon A, there are 171 ($\binom{18}{2} + 18$). I looked at every other same typed pokemon B and checked if this pokemon B has equal or better stats than pokemon A and beats all opposing pokemon and if so B can replace A. This reduced the size by only roughly 50\% which is not enough for the algorithm to run efficiently
+There are 324 ($\binom{18}{2} + 18$) type combinations. I looked at every other same typed pokemon A and B and checked if pokemon B has equal or better stats than pokemon A and beats all opposing pokemon. If so B can replace A.
 ##### Top n performing Pokemon by type
-Using the same approach we can reduce the number even further by just picking the top n pokemon for each type combination. This in the best case gives us at minimum 171 pokemon, one for each type, since not all of the 324 type combinations are used.
+Using the same approach we can reduce the number even further by just picking the top n pokemon for each type combination. This in the best case gives us at minimum 171 pokemon, one for each type, since only 171 of the 324 type combinations are used.
 
 #### 2.5.3 Incremental Team Optimization Approach
 This is the final approach i used to tackle the problem. It revolves around the idea of breaking the problem down into smaller subproblems and figuring out any relations which might be helpful in concluding something about the bigger problem. In this concrete case I started with the top 20 individually performing pokemon. Then I formed teams of two out of those top 20 individual pokemon and simulated battles against random opponent teams of size 2. I followed this this up by forming teams of 3 of the teams of 2 and continued this process until I reached teams of size 6.
@@ -139,17 +139,15 @@ My supervisor provided me with the flexibility to explore several approaches, as
 ## 3. Implementation
 In this implementation section, I will over the key components behind the different approaches. While I won't cover every detail here, those interested in the full implementation can have a look at the code, which is in the GitHub repository. [^2] One thing you will often see is the conversion from .csv files into dictionaries due to them being faster. Generally everything that can be precomputed is precomputed.
 
-
 ### 3.1 Battle Simulation
 The battle simulation consists of three main parts: the Pokémon class, Team class and the Battle functions. Both of these classes will be touched upon in the following subsections.
 
-
 #### 3.1.1 Pokemon Class
 The Pokémon class initializes each Pokémon with its base stats, top moves, and calculated stats based on fixed EVs, IVs, and nature:
-- **Initialization**: Retrieves base stats, top moves, and calculates the final stats for each Pokémon.
+- **Initialization**: Retrieves base stats, top moves, type and calculates the final stats for each Pokémon.
 - **Stat Calculation**: Functions to calculate stats based on the Pokémon's base stats, EVs, IVs, and nature.
 - **Reset HP**: Resets the Pokémon's battle HP to its base HP. This is done so I can quickly reset a pokemon in battle to its normal HP after it faints and not create a completely new Pokémon everytime.
-- **Retrieve Moves**: Retrieves the top moves for each Pokémon.
+- **Retrieve Moves**: Retrieves the top moves for each Pokémon which are selected to be the strongest moves by damage.
 - **Print Stats**: Prints the Pokémon's stats for debugging purposes.
 
 
@@ -180,8 +178,7 @@ The Battle class manages battles between two teams of Pokémon, handling individ
     - Chooses a random move of a precomputed list of 4 moves, calculates damage, and updates the defending Pokémon's HP.
 
 ### 3.2 Graph Theory Algorithms
-
-This will be the most uninteresting implementation-section since most of the graph theory algorithms were implemented using the NetworkX library and only little adjustements or loops have been employed. Key algorithms and methods used include:
+This is a trivial section since most of the graph theory algorithms were implemented using the NetworkX library and only little adjustements or loops have been employed. Key algorithms and methods used include:
 
 #### 3.2.1 Creating Directed Graph based on Simulation:
   - Created directed graphs (`G`) from Pokémon battle outcomes, adding edges between Pokémon A and B if A beats B with a probability $\geq 0.9$.
@@ -236,28 +233,23 @@ This will be the most uninteresting implementation-section since most of the gra
     find_kings(G)
     ```
 
-#### 3.2.5 Community Detection:
-  - Detected communities within the undirected graph using `communities = nx.algorithms.community.louvain_communities(G_undirected)` to explore relationships among Pokémon.
-
-
 ### 3.3 Iterative Algorithm
 The following algorithm iteratively identifies top-performing Pokémon teams by simulating battles and refining the selection of Pokémon IDs over multiple iterations.
 
 1. **Initialization**:
-    - Start with a random sample of Pokémon IDs (`subset_size`).
-    - Set parameters for the number of iterations, the number of top teams to consider, the number of battles to start with, and the number of battles to end with.
+    - Start with a random sample of Pokémon IDs (`subset_size`) which is usually set to 12.
+    - Set parameters for the maximum number of iterations, the number of top teams to consider for the recurring IDs, the number of battles to start with in the first generation, and the number of battles to end with in the last generation.
 
 2. **Iterative Process**:
     - For each iteration:
         - **Generate Opponent Teams**: Create a set of fixed opponent teams by randomly sampling Pokémon IDs and adding any custom teams provided.
         - **Simulate Battles**: Use the `run_battle_simulation` function to simulate battles between the generated teams and record win counts for each team.
-        - **Identify Top Performers**: Sort teams by their win counts to identify the top teams and extract the most frequently occurring Pokémon.
-        - **Update Pokémon IDs**: Update the current set of Pokémon IDs with the top-performing Pokémon IDs and introduce new IDs to maintain diversity.
-        - **Check Specific Team Performance**: Calculate the win rate of a specific team and track better-performing teams if the specific team is not the best or does not have a 100% win rate.
+        - **Identify Top Performers**: Sort teams by their win counts to identify the top 10 teams and extract the 6 most frequently occurring Pokémon IDs.
+        - **Update Pokémon IDs**: Replace some of the current set of Pokémon IDs with the top-performing Pokémon IDs if they are not already in it and introduce 6 new IDs to maintain diversity and form the new 12 IDs.
+        - **Check Specific Team Performance**: Calculate the win rate of the threshold team and track better-performing teams.
 
 3. **Output**:
-    - The algorithm returns the top Pokémon IDs after the final iteration.
-
+    - The algorithm returns the top Pokémon IDs after the final iteration and prints running win percentages of the top 10 teams along the way.
 
 ```python
 from scripts.Team import Team
@@ -313,23 +305,20 @@ def iterative_best(iterations=100, id_set=list(range(1, 803)), subset_size=12, t
 ```
 
 
-
 ### 3.4 Incremental Team Optimization
-
 Given the computational complexity of simulating battles for full 6v6 teams, we started with smaller subproblems. The main idea is to:
 
 1. Identify the top 20 individually performing Pokémon.
 2. Create all possible pairs (combinations) from these 20 Pokémon.
-3. Simulate battles between these pairs and random teams to evaluate their performance.
+3. Predict and Simulate battles between these pairs and random teams to evaluate their performance and gain knowledge about the behaviour of the teams.
 4. Incrementally build larger teams by fusing smaller teams, adding one Pokémon at a time, based on shared members and predicted performance.
 
 #### Process Summary
 
 1. **Create Initial Teams**: Form all `20 choose 2` pairs from the top 20 Pokémon.
-2. **Simulate Battles**: Evaluate the performance of these pairs against random teams.
-3. **Fuse Teams**: Combine smaller teams into larger teams (triples, quadruples, etc.) if they share `team_size-1` Pokémon.
-4. **Predict Performance**: Use the performance of smaller teams to predict the performance of the newly formed larger teams.
-5. **Simulate and Compare**: Simulate battles for the larger teams and compare the results with the predictions.
+2. **Predict Performance**: Use the performance of smaller teams to predict the performance of the newly formed larger teams.
+3. **Simulate Battles**: Evaluate the performance of these pairs against random teams.
+5. **Compare**: Compare the results with the predictions to gain insights about the quality of the prediction.
 6. **Repeat**: Continue the process, increasing the team size by one each iteration until reaching teams of size 6.
 
 
@@ -396,7 +385,7 @@ Since showing all examples would be a bit much I will just use the case from tea
 ```
         
 #### Simulation of Quadruples
-        
+
 ```Python
         def generate_random_teams(num_teams, team_size=4):
             teams = []
@@ -450,7 +439,7 @@ Since showing all examples would be a bit much I will just use the case from tea
 ```
 
 ## 4. Results
-The results section of this thesis presents an analysis of the various methodologies employed to identify the optimal Pokémon team. Each attempted approach is revisited in detail, showcasing the findings through a series of images, graphs, and tables to illustrate the performance of different team configurations. The primary goal is to evaluate the effectiveness of each strategy and to highlight the insights gained from these analyses.
+The results section of this thesis presents an analysis of the various methodologies used to identify the optimal Pokémon team. Each attempted approach is revisited in detail, showcasing the findings through a series of images, graphs, and tables to illustrate the performance of different team configurations. The primary goal is to evaluate the effectiveness of each strategy and to highlight the insights gained from these analyses.
 
 ### 4.1 Results Battle Simulation
 While the battle simulation results do not directly pinpoint the optimal Pokémon team, they offer valuable insights into the performance characteristics and interactions of different team configurations. These findings lay the groundwork for more targeted analyses and highlight the complexity of the optimization problem. The visualizations included in this section help convey the nuances of the data, offering a clear view of the underlying dynamics at play and is a fun visualization for Pokémon fanatics.
