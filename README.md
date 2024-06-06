@@ -450,6 +450,28 @@ By exploring these results, we gain a deeper appreciation of the challenges and 
 ![Win Probability Charmeleon against first 10 Pokémon](Charmeleon.png)
 ![Fist Generatoin Pokémon Win Probability](Figure1000_151.png)
 
+
+The top 10 individual performing Pokémon for the first generation are:
+[('', ), ('', ), ('', ), ('', ), ('', ), ('', ), ('',), ('', ), ('', ), ('', ), ('Marshadow', 0.9203718204488789), ('Xerneas (Neutral Mode)', 0.9197098503740664), ('Palkia', 0.9191592269326684), ('Zekrom', 0.9162930174563595), ('Rayquaza', 0.9157695760598512), ('Jirachi', 0.9079103491271826), ('Volcanion', 0.9073499999999999), ('Yveltal', 0.9051539900249377), ('Kyogre', 0.9021644638403995), ('Haxorus', 0.8968860349127179)]
+| Full Dataset |
+| ---- |
+| *Pokémon*      | *Average* |
+| --- | --- |
+| Giratina (Altered Forme) | 0.9610472568578559 |
+| Lunala | 0.9590593516209487
+| Arceus (Normal) | 0.9504522443890281 |
+| Dialga | 0.9480451371571083 |
+| Solgaleo | 0.9387623441396511 |
+| Ho-Oh | 0.9352665835411477 |
+| Lugia | 0.9319522443890287 |
+| Mewtwo | 0.925636034912718 |
+| Reshiram | 0.9232175810473824 |
+| Magearna | 0.9210951371571086 |
+
+
+
+
+
 ### 4.2 Results Graph Theory Algorithms
 In this section, we delve into the application of graph theory to analyze the interconnections and performance of Pokémon teams. We begin with a graphic that illustrates the different interconnections within a graph, providing a visual representation of the relationships and interactions between the first 10 Pokémon based on their battle outcomes:
 ![Graph Win Probabiliy](Graph1000_10.png)
