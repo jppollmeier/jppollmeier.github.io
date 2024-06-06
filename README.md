@@ -449,8 +449,21 @@ By exploring these results, we gain a deeper appreciation of the challenges and 
 ![First 10 Pokémon Win Probability](Matrix_10.png)
 ![First Generation Win Probability](Matrix_151.png)
 
+The top 10 individual performing Pokémon for the 1. Generation are:
+| *Rank* | *Pokémon* | *Win Probability* |
+| --- | --- | --- |
+| 1. | Mewtwo | 0.9674788079470197 |
+| 2. | Snorlax | 0.9408999999999995
+| 3. | Dragonite | 0.9162225165562912 |
+| 4. | Moltres | 0.8931192052980129 |
+| 5. | Arcanine | 0.8722357615894036 |
+| 6. | Zapdos | 0.865892715231788 |
+| 7. | Tauros | 0.8606562913907281 |
+| 8. | Hypno | 0.8387019867549668 |
+| 9. | Gengar | 0.8267139072847685 |
+| 10. | Hitmonchan | 0.8225529801324505 |
 
-The top 10 individual performing Pokémon for the first generation are:
+The top 10 individual performing Pokémon for the the whole Dataset are:
 | *Rank* | *Pokémon* | *Win Probability* |
 | --- | --- | --- |
 | 1. | Giratina (Altered Forme) | 0.9610472568578559 |
@@ -463,6 +476,10 @@ The top 10 individual performing Pokémon for the first generation are:
 | 8. | Mewtwo | 0.925636034912718 |
 | 9. | Reshiram | 0.9232175810473824 |
 | 10. | Magearna | 0.9210951371571086 |
+
+
+This gives us the following naively picked best team: *Giratina (Altered Forme), Lunala, Arceus, Dialga, Solgaleo, Ho-Oh*
+
 
 
 
