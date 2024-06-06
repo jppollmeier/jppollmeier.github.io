@@ -449,7 +449,7 @@ By exploring these results, we gain a deeper appreciation of the challenges and 
 ![First 10 Pokémon Win Probability](Matrix_10.png)
 ![First Generation Win Probability](Matrix_151.png)
 
-*The top 10 individual performing Pokémon for the 1. Generation are:*
+**The top 10 individual performing Pokémon for the 1. Generation are:**
 | *Rank* | *Pokémon* | *Win Probability* |
 | --- | --- | --- |
 | 1. | Mewtwo | 0.9674788079470197 |
@@ -463,7 +463,7 @@ By exploring these results, we gain a deeper appreciation of the challenges and 
 | 9. | Gengar | 0.8267139072847685 |
 | 10. | Hitmonchan | 0.8225529801324505 |
 
-*The top 10 individual performing Pokémon for the the whole Dataset are:*
+**The top 10 individual performing Pokémon for the the whole Dataset are:**
 | *Rank* | *Pokémon* | *Win Probability* |
 | --- | --- | --- |
 | 1. | Giratina (Altered Forme) | 0.9610472568578559 |
@@ -504,6 +504,7 @@ Using our functions for dominating sets we find the following dominating sets in
 
 
 
+
 2. **Incremental Team Optimization**: This approach involved iteratively improving team compositions by evaluating smaller subsets of Pokémon, expanding them progressively, and validating their performance through extensive simulations.
 3. **Fusion-Based Team Building**: Starting from pairs, we incrementally formed larger teams based on shared members and performance predictions, continually refining our selections through simulated battles.
 4. **Iterative Best Team Approach**: Utilizing a combination of random sampling and performance-based selection, this method aimed to identify the best-performing teams through a series of iterative simulations and evaluations.
@@ -527,4 +528,3 @@ By systematically reviewing each attempted strategy and presenting the results w
 - List of all sources cited in the thesis
 [^1]: [Kaggle dataset](https://www.kaggle.com/datasets/mylesoneill/pokemon-sun-and-moon-gen-7-stats?select=moves.csv).
 [^2]: [GitHub Repository](Testtest)
-[^4]: [Ein schnellerer Algorithmus für die Betweenness-Zentralität](https://www-tandfonline-com.translate.goog/doi/abs/10.1080/0022250X.2001.9990249?_x_tr_sl=en&_x_tr_tl=de&_x_tr_hl=de&_x_tr_pto=sc)
