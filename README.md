@@ -452,9 +452,6 @@ By exploring these results, we gain a deeper appreciation of the challenges and 
 
 
 The top 10 individual performing Pokémon for the first generation are:
-[('', ), ('', ), ('', ), ('', ), ('', ), ('', ), ('',), ('', ), ('', ), ('', ), ('Marshadow', 0.9203718204488789), ('Xerneas (Neutral Mode)', 0.9197098503740664), ('Palkia', 0.9191592269326684), ('Zekrom', 0.9162930174563595), ('Rayquaza', 0.9157695760598512), ('Jirachi', 0.9079103491271826), ('Volcanion', 0.9073499999999999), ('Yveltal', 0.9051539900249377), ('Kyogre', 0.9021644638403995), ('Haxorus', 0.8968860349127179)]
-| Full Dataset |
-| ---- |
 | *Pokémon*      | *Average* |
 | --- | --- |
 | Giratina (Altered Forme) | 0.9610472568578559 |
