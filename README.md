@@ -452,18 +452,18 @@ By exploring these results, we gain a deeper appreciation of the challenges and 
 
 
 The top 10 individual performing Pokémon for the first generation are:
-| *Pokémon*      | *Average* |
-| --- | --- |
-| Giratina (Altered Forme) | 0.9610472568578559 |
-| Lunala | 0.9590593516209487
-| Arceus (Normal) | 0.9504522443890281 |
-| Dialga | 0.9480451371571083 |
-| Solgaleo | 0.9387623441396511 |
-| Ho-Oh | 0.9352665835411477 |
-| Lugia | 0.9319522443890287 |
-| Mewtwo | 0.925636034912718 |
-| Reshiram | 0.9232175810473824 |
-| Magearna | 0.9210951371571086 |
+| *Rank* | *Pokémon* | *Win Probability* |
+| --- | --- | --- |
+| 1. | Giratina (Altered Forme) | 0.9610472568578559 |
+| 2. | Lunala | 0.9590593516209487
+| 3. | Arceus (Normal) | 0.9504522443890281 |
+| 4. | Dialga | 0.9480451371571083 |
+| 5. | Solgaleo | 0.9387623441396511 |
+| 6. | Ho-Oh | 0.9352665835411477 |
+| 7. | Lugia | 0.9319522443890287 |
+| 8. | Mewtwo | 0.925636034912718 |
+| 9. | Reshiram | 0.9232175810473824 |
+| 10. | Magearna | 0.9210951371571086 |
 
 
 
