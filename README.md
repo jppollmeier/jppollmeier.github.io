@@ -446,9 +446,8 @@ While the battle simulation results do not directly pinpoint the optimal Pokémo
 
 By exploring these results, we gain a deeper appreciation of the challenges and potential strategies for building effective Pokémon teams. This section serves as a crucial step in our overall analysis, bridging the gap between theoretical models and practical performance.
 
-![Fist 10 Pokémon Win Probability](Figure1000_10.png)
-![Win Probability Charmeleon against first 10 Pokémon](Charmeleon.png)
-![Fist Generatoin Pokémon Win Probability](Figure1000_151.png)
+![First 10 Pokémon Win Probability](Matrix_10.png)
+![First Generation Win Probability](Matrix_151.png)
 
 
 The top 10 individual performing Pokémon for the first generation are:
