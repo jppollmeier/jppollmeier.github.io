@@ -127,15 +127,12 @@ Generally the candidate- and opponent pool are assumed to be equal in the beginn
 For each type combination and pokemon A, there are 171 ($\binom{18}{2} + 18$). I looked at every other same typed pokemon B and checked if this pokemon B has equal or better stats than pokemon A and beats all opposing pokemon and if so B can replace A. This reduced the size by only roughly 50\% which is not enough for the algorithm to run efficiently
 ##### Top n performing Pokemon by type
 Using the same approach we can reduce the number even further by just picking the top n pokemon for each type combination. This in the best case gives us at minimum 171 pokemon, one for each type, since not all of the 324 type combinations are used.
-~~##### Coverage algorithms?
-Coverage describes a teams ability to beat different types of pokemon. A high coverage means a team might win against a lot of pokemon teams with a low probability of e.g. 70\%. Coverage is constituted of the minimal nonzero value of any of the pokemon which beats all pokemon of a type group. With this metric we can define a team with high coverage to form a good team since most types are covered. While teams with low coverage might be especially effective against the eventually to be found "best team" they are not suitable to be the best team themselves as they only cover a small subset of the broad spectrum of teams.~~
 
 #### 2.5.3 Incremental Team Optimization Approach
 This is the final approach i used to tackle the problem. It revolves around the idea of breaking the problem down into smaller subproblems and figuring out any relations which might be helpful in concluding something about the bigger problem. In this concrete case I started with the top 20 individually performing pokemon. Then I formed teams of two out of those top 20 individual pokemon and simulated battles against random opponent teams of size 2. I followed this this up by forming teams of 3 of the teams of 2 and continued this process until I reached teams of size 6.
 This also meant that I finally needed to take advantage the computing cluster, which I used to handle the extensive simulations and computations required.
 
 ### 2.6 Conclusion
-*Summarize the methodology section, highlighting the key steps taken in the research design, data collection, and analysis. Emphasize the importance of the battle simulation and the three algorithms used to find the best Pokémon team.*
 My supervisor provided me with the flexibility to explore several approaches, as there is no clear best way to tackle such a complex optimization problem. This allowed me to be dynamic and adaptive with my research, enabling me to experiment with graph theoretical methods, iterative techniques, and simulation-based evaluations, leading to a more exploratory and on the go process.
 
 
@@ -144,7 +141,7 @@ In this implementation section, I will over the key components behind the differ
 
 
 ### 3.1 Battle Simulation
-The battle simulation consists of three main parts: the Pokémon class, Team class and the Battle class. Both of these classes will be touched upon in the following subsections.
+The battle simulation consists of three main parts: the Pokémon class, Team class and the Battle functions. Both of these classes will be touched upon in the following subsections.
 
 
 #### 3.1.1 Pokemon Class
@@ -156,235 +153,41 @@ The Pokémon class initializes each Pokémon with its base stats, top moves, and
 - **Print Stats**: Prints the Pokémon's stats for debugging purposes.
 
 
-    
-```Python
-class Pokemon:
-    def __init__(self, id, moves=None, level=None, hp_ev=None, attack_ev=None, defense_ev=None, special_attack_ev=None, special_defense_ev=None, speed_ev=None, hp_iv=None, attack_iv=None, defense_iv=None, special_attack_iv=None, special_defense_iv=None, speed_iv=None, nature=None):
-        self.id = id
-
-        # Retrieve the base stats for the Pokémon using the preprocessed dictionary
-        base_stats = base_stats_dict[self.id]
-
-        self.name = base_stats['forme']
-        self.species = base_stats['species']
-        self.ndex = base_stats['ndex']
-
-        self.type1 = base_stats['type1'].lower()
-        self.type2 = base_stats['type2'].lower() if isinstance(base_stats['type2'], str) else ''
-
-        self.level = 80  # Assuming a fixed level
-
-        # Retrieve top moves using the preprocessed dictionary
-        self.moves = self.get_top_moves()
-
-        # Set EVs and IVs
-        self.hp_ev = self.attack_ev = self.defense_ev = self.special_attack_ev = self.special_defense_ev = self.speed_ev = 85
-        self.hp_iv = self.attack_iv = self.defense_iv = self.special_attack_iv = self.special_defense_iv = self.speed_iv = 16
-
-        # Set nature and retrieve nature modifiers using the preprocessed dictionary
-        self.nature = "Hardy"  # Assuming a fixed nature
-        nature_modifiers = nature_modifiers_dict[self.nature]
-
-        # Function to calculate each stat
-        def calc_stat(base, iv, ev, nature_mod):
-            return ((2 * base + iv + ev // 4) * self.level) // 100 + 5 * nature_mod
-
-        # Function to calculate HP
-        def calc_hp(base, iv, ev):
-            if base == 1:  # For special cases like Shedinja
-                return 1
-            return ((2 * base + iv + ev // 4) * self.level) // 100 + self.level + 10
-
-        # Calculate stats
-        self.hp = calc_hp(base_stats['hp'], self.hp_iv, self.hp_ev)
-        self.bhp = self.hp
-        self.attack = calc_stat(base_stats['attack'], self.attack_iv, self.attack_ev, nature_modifiers['attack'])
-        self.defense = calc_stat(base_stats['defense'], self.defense_iv, self.defense_ev, nature_modifiers['defense'])
-        self.special_attack = calc_stat(base_stats['spattack'], self.special_attack_iv, self.special_attack_ev, nature_modifiers['spattack'])
-        self.special_defense = calc_stat(base_stats['spdefense'], self.special_defense_iv, self.special_defense_ev, nature_modifiers['spdefense'])
-        self.speed = calc_stat(base_stats['speed'], self.speed_iv, self.speed_ev, nature_modifiers['speed'])
-
-
-
-
-        # Generate EVs and IVs if all respective values are None
-        '''
-        if all(v is None for v in [hp_ev, attack_ev, defense_ev, special_attack_ev, special_defense_ev, speed_ev]):
-            self.generate_legal_evs()
-        if all(v is None for v in [hp_iv, attack_iv, defense_iv, special_attack_iv, special_defense_iv, speed_iv]):
-            self.generate_ivs()
-        '''
-        #removed due to already being set
-    
-    def reset_hp(self):
-        self.bhp = self.hp
-
-
-    def generate_legal_evs(self):
-        MAX_EV_PER_STAT = 252
-        MAX_TOTAL_EVs = 510
-
-        ev_attributes = {
-            "hp_ev": "HP",
-            "attack_ev": "Attack",
-            "defense_ev": "Defense",
-            "special_attack_ev": "Special Attack",
-            "special_defense_ev": "Special Defense",
-            "speed_ev": "Speed"
-        }
-
-        total_evs = sum([getattr(self, attr) for attr in ev_attributes])
-
-        while total_evs < MAX_TOTAL_EVs:
-            # Randomly select an EV attribute
-            ev_attr_index = int(pop_random() * len(ev_attributes))
-            ev_attr = list(ev_attributes.keys())[ev_attr_index]
-
-            max_possible_ev = min(MAX_EV_PER_STAT - getattr(self, ev_attr), MAX_TOTAL_EVs - total_evs)
-
-            if max_possible_ev <= 0:
-                break
-
-            # Determine EV to add
-            ev_to_add = int(pop_random() * max_possible_ev) + 1
-            setattr(self, ev_attr, getattr(self, ev_attr) + ev_to_add)
-            total_evs += ev_to_add
-
-
-    def generate_ivs(self):
-        iv_attributes = [
-            "hp_iv", 
-            "attack_iv", 
-            "defense_iv", 
-            "special_attack_iv", 
-            "special_defense_iv", 
-            "speed_iv"
-        ]
-        for iv_attr in iv_attributes:
-            iv_value = int(pop_random() * 32)
-            setattr(self, iv_attr, iv_value)
-
-
-    def get_top_moves(self):
-        # Retrieve top moves for the given Pokémon
-        moves = top_moves_dict.get(self.name, {})
-        if moves == {}:
-            #print(f"Failed to fetch moves with \"{self.name}\" now trying \"{self.species}\"")
-            moves = top_moves_dict.get(self.species, {})
-        return moves
-
-
-
-    def sample_moves(moves):
-        sampled_moves = set()
-        moves_list = list(moves)
-
-        while len(sampled_moves) < min(4, len(moves_list)):
-            move_index = int(pop_random() * len(moves_list))
-            sampled_moves.add(moves_list[move_index])
-        
-        return list(sampled_moves)
-
-
-    def print_stats(self):
-        print(f"Pokemon ID: {self.id}")
-        print(f"Name: {self.name}")
-        print(f"(Types: {self.type1, self.type2}")
-        print(f"Level: {self.level}")
-        print(f"Nature: {self.nature}")
-        print(f"Stats: HP: {self.hp}, Attack: {self.attack}, Defense: {self.defense}, Special Attack: {self.special_attack}, Special Defense: {self.special_defense}, Speed: {self.speed}")
-        print(f"EVs: HP: {self.hp_ev}, Attack: {self.attack_ev}, Defense: {self.defense_ev}, Special Attack: {self.special_attack_ev}, Special Defense: {self.special_defense_ev}, Speed: {self.speed_ev}")
-        print(f"IVs: HP: {self.hp_iv}, Attack: {self.attack_iv}, Defense: {self.defense_iv}, Special Attack: {self.special_attack_iv}, Special Defense: {self.special_defense_iv}, Speed: {self.speed_iv}")
-        print(f"Moves: {self.moves}")
-```
-
-
 #### 3.1.2 Team Class
 The Team class initializes a team of Pokémon, ensuring unique Pokédex numbers and filling the team to the required size if necessary:
 - **Initialization**: 
   - Takes a variable number of Pokémon IDs and a team size. Which is especially important for the Incremental Team Optimization Approach.
-  - Ensures that the team consists of unique Pokémon based on their Pokédex numbers.
+  - Ensures that the team consists of unique Pokémon based on their Pokédex numbers as we will not allow for teams with non unique Pokémon.
   - Fills the rest of the team with random, unique Pokémon if the provided IDs are insufficient to meet the team size.
 - **Reset**: 
   - Resets the HP of all Pokémon in the team to their base HP.
 - **String Representation**: 
   - Provides a string representation of the team, listing each Pokémon and their base HP for debugging purposes.
 
-    
-```Python
-class Team:
-    def __init__(self, *pokemon_ids, team_size):
-        self.max_team_size = team_size
-        self.pokemon_ids = []
-        self.pokedex_numbers = set()  # To track unique Pokédex numbers
-        self.pokemon_team = []
-        
-        # Process the provided Pokémon IDs, ensuring they are unique by Pokédex number
-        for pid in pokemon_ids:
-            pokemon = scripts.Pokemon.Pokemon(pid)
-            if pokemon.ndex not in self.pokedex_numbers:
-                self.pokemon_ids.append(pid)
-                self.pokemon_team.append(pokemon)
-                self.pokedex_numbers.add(pokemon.ndex)
-        
-        # Fill the rest of the team with random, unique Pokémon, if necessary
-        while len(self.pokemon_team) < self.max_team_size:
-            random_id = random.randint(1, 151)
-            random_pokemon = scripts.Pokemon.Pokemon(random_id)
-            if random_pokemon.ndex not in self.pokedex_numbers:
-                self.pokemon_ids.append(random_id)
-                self.pokemon_team.append(random_pokemon)
-                self.pokedex_numbers.add(random_pokemon.ndex)
 
-    def reset(self):
-        for pok in self.pokemon_team:
-            pok.reset_hp()
-            
-    def __str__(self):
-        return "Team: " + ', '.join((str(pokemon.name) + " " + str(pokemon.bhp)) for pokemon in self.pokemon_team)
-```
-
-#### 3.1.3 Battle Class
-
+#### 3.1.3 Battle Function
 The Battle class manages battles between two teams of Pokémon, handling individual battles and determining the overall winner:
 
-- **Initialization and Data Loading**: 
-  - CSV files are read and converted into dictionaries for faster access during battles.
-  - Type chart data is preprocessed into a nested dictionary for quick lookups.
-
 - **Battle Functions**:
-  - `teamBattle(team1, team2, verbose=True)`: 
+  - `teamBattle(team1, team2)`: 
     - Manages a full battle between two teams of Pokémon.
     - Determines the winner based on which team's Pokémon faint first.
-  - `battle(pokemon1, pokemon2, verbose=True)`:
+  - `battle(pokemon1, pokemon2)`:
     - Conducts a battle between two individual Pokémon.
     - Determines the first attacker based on speed and alternates attacks until one Pokémon faints.
-  - `attack(pokemon1, pokemon2, verbose)`:
+  - `attack(pokemon1, pokemon2)`:
     - Handles the logic for one Pokémon attacking another.
-    - Chooses a random move, calculates damage, and updates the defending Pokémon's HP.
+    - Chooses a random move of a precomputed list of 4 moves, calculates damage, and updates the defending Pokémon's HP.
 
 ### 3.2 Graph Theory Algorithms
 
 This will be the most uninteresting implementation-section since most of the graph theory algorithms were implemented using the NetworkX library and only little adjustements or loops have been employed. Key algorithms and methods used include:
 
-#### 3.2.1 Directed Graph Functions:
-  - Created directed graphs (`G`) from Pokémon battle outcomes, adding edges between Pokémon A and B if A beats B with a probability e.g. >= 0.9.
-    ```python
-    # Create a directed graph
-    G = nx.DiGraph()
-    
-    # Add nodes (Pokémon species)
-    for species in df.index:
-        G.add_node(species)
-    
-    # Add edges with winning probabilities as weights
-    for i, row in df.iterrows():
-        for j, prob in row.items():
-            if i != j and prob >= 0.9:
-                G.add_edge(i, j, weight=prob)
-    ```
+#### 3.2.1 Creating Directed Graph based on Simulation:
+  - Created directed graphs (`G`) from Pokémon battle outcomes, adding edges between Pokémon A and B if A beats B with a probability $\geq 0.9$.
+  - 
 #### 3.2.2 Dominating Sets:
-  - Utilized `nx.dominating_set(G)` to find dominating sets. The problem of finding smallest dominating sets is NP-Hard and only bruteforcable for smaller subsets of all pokemon. The following codes do this in a naive brute force way and attemt to find a dominating set using the nodes ranked descendingly by out-degree:
+  - Utilized `nx.dominating_set(G)` to find a random dominating set. The problem of finding smallest dominating sets is computationally demanding and only bruteforcable for smaller subsets of all pokemon. The following codes do this in a naive brute force way and attemt to find a dominating set using the nodes ranked descendingly by out-degree:
     ```python 
     def brute_find_dominating_sets(G):
         nodes = list(G.nodes())
@@ -416,31 +219,22 @@ This will be the most uninteresting implementation-section since most of the gra
         return None
     ```
 
-#### 3.2.3 Finding Kings:
-  - Implemented a custom function to find "kings" in the tournament graph, defined as Pokémon from which every other Pokémon is reachable within two steps:
+#### 3.2.3 Finding k-Kings:
+  - Implemented a custom function to find k-kings in the directed graph, defined as Pokémon from which every other Pokémon is reachable within k edges:
     ```python
-    def is_king(tournament, vertex):
-        shortest_paths = nx.single_source_shortest_path_length(tournament, vertex, cutoff=2)
-        return len(shortest_paths) == len(tournament.nodes)
+    def is_king(graph, vertex):
+        shortest_paths = nx.single_source_shortest_path_length(graph, vertex, cutoff=1)
+        return len(shortest_paths) == len(graph.nodes)
 
-    def find_kings(tournament):
+    def find_kings(graph):
         kings = []
-        for vertex in tournament.nodes:
-            if is_king(tournament, vertex):
+        for vertex in graph.nodes:
+            if is_king(graph, vertex):
                 kings.append(vertex)
         return (kings, len(kings))
 
     find_kings(G)
     ```
-
-#### 3.2.4 Ranking Metrics:
-  - Evaluated various centrality and ranking metrics to identify better metrics than win probability for ranking Pokémon in the created DiGraph \( G \):
-    - `in_degree = nx.in_degree_centrality(G)`
-    - `out_degree = nx.out_degree_centrality(G)`
-    - `page_rank = nx.pagerank(G)`
-    - `hubs, authorities = nx.hits(G)`
-    - `betweenness = nx.betweenness_centrality(G)` 
-    - `closeness = nx.closeness_centrality(G)`
 
 #### 3.2.5 Community Detection:
   - Detected communities within the undirected graph using `communities = nx.algorithms.community.louvain_communities(G_undirected)` to explore relationships among Pokémon.
@@ -721,20 +515,13 @@ In addition to presenting the results, we also discuss any unexpected outcomes a
 
 By systematically reviewing each attempted strategy and presenting the results with clarity, this section aims to provide a thorough understanding of the incremental team optimization process and its efficacy in identifying the best Pokémon teams.
 
-
-## 5. Discussion
-
-- Interpretation of results
-- Comparison with existing literature
-- Implications of findings
-
-## 6. Conclusion
+## 5. Conclusion
 
 - Summary of key findings
 - Contributions to the field
 - Recommendations for future research
 
-## 7. References
+## 6. References
 
 - List of all sources cited in the thesis
 [^1]: [Kaggle dataset](https://www.kaggle.com/datasets/mylesoneill/pokemon-sun-and-moon-gen-7-stats?select=moves.csv).
