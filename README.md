@@ -446,29 +446,28 @@ The findings from the Incremental Team Optimization are the most interesting for
 
 Example table afer 1000000 battles simulated:
 | Pokémon 1 | Pokémon 2 | Pokémon 3 | Pokémon 4 | Pokémon 5 | Pokémon 6 | Win Probability |
-| ------------- | --------------------- | ------------------- | ----------------- | ----------------- | ------------- | --------------- |
-| Lugia         | Giratina (Altered Forme) | Xerneas             | Yveltal            | Lunala             | Magearna      | 0.999913        |
-| Ho-Oh         | Arceus (Normal)         | Zekrom              | Xerneas            | Yveltal            | Lunala        | 0.999873        |
-| Ho-Oh         | Giratina (Altered Forme) | Xerneas             | Yveltal            | Solgaleo           | Lunala        | 0.999872        |
-| Lugia         | Ho-Oh                  | Dialga              | Giratina (Altered Forme) | Yveltal            | Solgaleo      | 0.999863        |
-| Lugia         | Jirachi                | Giratina (Altered Forme) | Yveltal            | Lunala             | Necrozma (Dusk Mane) | 0.999861        |
-| Lugia         | Dialga                 | Giratina (Altered Forme) | Arceus (Normal)    | Yveltal            | Lunala        | 0.999854        |
-| Ho-Oh         | Giratina (Altered Forme) | Arceus (Normal)    | Haxorus            | Yveltal            | Lunala        | 0.999852        |
-| Lugia         | Ho-Oh                  | Jirachi             | Giratina (Altered Forme) | Yveltal            | Lunala        | 0.999851        |
-| Ho-Oh         | Giratina (Altered Forme) | Arceus (Normal)    | Zekrom             | Yveltal            | Lunala        | 0.99985         |
-| Giratina (Altered Forme) | Arceus (Normal)  | Xerneas            | Yveltal            | Solgaleo           | Lunala        | 0.99985         |
-| Lugia         | Jirachi                | Giratina (Altered Forme) | Yveltal            | Lunala             | Magearna      | 0.999842        |
-| Lugia         | Dialga                 | Giratina (Altered Forme) | Haxorus            | Zoroark            | Lunala        | 0.999819        |
-| Ho-Oh         | Jirachi                | Giratina (Altered Forme) | Zoroark            | Yveltal            | Lunala        | 0.999808        |
-| Lugia         | Dialga                 | Regigigas           | Giratina (Altered Forme) | Yveltal            | Solgaleo      | 0.999807        |
-| Lugia         | Ho-Oh                  | Dialga              | Giratina (Altered Forme) | Haxorus            | Lunala        | 0.999796        |
-| Ho-Oh         | Dialga                 | Giratina (Altered Forme) | Arceus (Normal)    | Zoroark            | Xerneas       | 0.999786        |
-| Giratina (Altered Forme) | Zoroark       | Xerneas            | Yveltal            | Solgaleo           | Lunala        | 0.999783        |
-| Ho-Oh         | Jirachi                | Giratina (Altered Forme) | Zekrom             | Yveltal            | Solgaleo      | 0.999758        |
-| Lugia         | Ho-Oh                  | Giratina (Altered Forme) | Haxorus            | Zoroark            | Lunala        | 0.999744        |
-| Lugia         | Ho-Oh                  | Dialga              | Giratina (Altered Forme) | Haxorus            | Solgaleo      | 0.99973         |
-| ------------- | --------------------- | ------------------- | ----------------- | ----------------- | ------------- | --------------- |
-| Giratina (Altered Forme) | Lunala       | Arceus (Normal)    | Dialga             | Solgaleo           | Ho-Oh         | 0.999695        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Lugia | Giratina (Altered Forme) | Xerneas | Yveltal | Lunala | Magearna | 0.999913 |
+| Ho-Oh | Arceus (Normal) | Zekrom | Xerneas | Yveltal | Lunala | 0.999873 |
+| Ho-Oh | Giratina (Altered Forme) | Xerneas | Yveltal | Solgaleo  | Lunala | 0.999872 |
+| Lugia | Ho-Oh | Dialga | Giratina (Altered Forme) | Yveltal | Solgaleo  | 0.999863 |
+| Lugia | Jirachi | Giratina (Altered Forme) | Yveltal | Lunala | Necrozma (Dusk Mane) | 0.999861 |
+| Lugia | Dialga | Giratina (Altered Forme) | Arceus (Normal) | Yveltal | Lunala | 0.999854 |
+| Ho-Oh | Giratina (Altered Forme) | Arceus (Normal) | Haxorus | Yveltal | Lunala | 0.999852 |
+| Lugia | Ho-Oh | Jirachi | Giratina (Altered Forme) | Yveltal | Lunala | 0.999851 |
+| Ho-Oh | Giratina (Altered Forme) | Arceus (Normal) | Zekrom | Yveltal | Lunala | 0.99985 |
+| Giratina (Altered Forme) | Arceus (Normal)  | Xerneas | Yveltal | Solgaleo  | Lunala | 0.99985 |
+| Lugia | Jirachi | Giratina (Altered Forme) | Yveltal | Lunala | Magearna  | 0.999842 |
+| Lugia | Dialga | Giratina (Altered Forme) | Haxorus | Zoroark | Lunala | 0.999819 |
+| Ho-Oh | Jirachi | Giratina (Altered Forme) | Zoroark | Yveltal | Lunala | 0.999808 |
+| Lugia | Dialga | Regigigas  | Giratina (Altered Forme) | Yveltal | Solgaleo  | 0.999807 |
+| Lugia | Ho-Oh | Dialga | Giratina (Altered Forme) | Haxorus | Lunala | 0.999796 |
+| Ho-Oh | Dialga | Giratina (Altered Forme) | Arceus (Normal) | Zoroark | Xerneas | 0.999786 |
+| Giratina (Altered Forme) | Zoroark | Xerneas | Yveltal | Solgaleo  | Lunala | 0.999783 |
+| Ho-Oh | Jirachi | Giratina (Altered Forme) | Zekrom | Yveltal | Solgaleo  | 0.999758 |
+| Lugia | Ho-Oh | Giratina (Altered Forme) | Haxorus | Zoroark | Lunala | 0.999744 |
+| Lugia | Ho-Oh | Dialga | Giratina (Altered Forme) | Haxorus | Solgaleo  | 0.99973 |
+| **Giratina (Altered Forme)** | **Lunala** | **Arceus (Normal)** | **Dialga** | **Solgaleo**  | **Ho-Oh** | **0.999695** |
 
 
 
