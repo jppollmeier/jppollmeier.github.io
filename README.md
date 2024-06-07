@@ -1,8 +1,27 @@
 # Best Pokémon Team
 
 ## Abstract
+This bachelor's thesis concerns itself with the finding of the best Pokémon Team under several given assumptions. With the Pokémon franchise now encompassing over 1000 Pokémon and additional ~100 being released every generation, each with their own set of stats and features, identifying the best team poses a very challenging question. This Project makes use of a dataset and uses different approaches to find the best pokemon team. The methodology includes simulation of battles between individual pokemon and teams and also several graph theory approaches to find the best team. We can show that the selection of our algorithm is significantly better than a more common "naive" selection technique employed by some players. Future research directions could include a less restricted definition of the problem statement and including a more sophisticated battle simulation between Pokémon.
 
-This bachelor's thesis concerns itself with the finding of the best Pokémon Team under several given assumptions. With the Pokémon franchise now encompassing over 1000 Pokémon and additional ~100 being released every generation, each with their own set of stats and features, identifying the best team poses a very challenging question. This Project makes use of a dataset and uses different approaches to find the best pokemon team. The methodology includes simulation of battles between individual pokemon and teams and also several graph theory approaches to find the best team. We can show that the selection of our algorithm is significantly better than a more common "naive" selection technique employed by some players. This work is not only interesting for the pokemon community by providing them with a scientific approach of team selection but has its roots in many optimization problems such as ?. Future research directions could include a less restricted definition of the problem statement and including a more sophisticated battle simulation between Pokémon.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -52,6 +71,26 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
 - [7. References](#7-references)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 1. Introduction
 For many, unlike myself, Pokémon was their first portal into the realm of gaming. Pokemon is set in a world where you and the namegiving creatures, Pokemon, are best friends. You can catch Pokemon, battle them and conquer the rankings to become Pokemon master. The only catch is, at any point in the game you may only be with a team of at most six pokemon, making the selection of the right pokemon and ordering even more important. Only very little gaming franchises manage to keep such a large fanbase content over so many years of creating new and unique pokemon. Whats their secret to this success? Could it be that the game developers meticulously balanced every pokemon in such a way that they each can be viable in certain cenarios and team constellations? To test this hyptothesis I was tasked with finding a significantly better Pokemon team than a naively chosen baseline. This is not only an interesting question for many enthusiasts all over the world but also presents a rich field for computational analysis.
 
@@ -59,7 +98,7 @@ For many, unlike myself, Pokémon was their first portal into the realm of gamin
 The motivation for this particular problem stems from the personal fascination in optimizing each component when gaming and the general interest for the pokemon franchise while also presenting interesting concepts in the fields of optimization problems, game theory and probability. By tackling these fields this study aims to contribute to the broader understanding of strategic game design and optimization problems with the possibility to extend that knowledge to beyond the realm of pokemon.
 
 ### 1.2 Problem Statement
-Despite the many different approaches found online there remains no agreed upon standard of finding the best pokemon team. Even the strongest Teams will get beaten by another team which counters their strengths. This study defines "best" as the ability of the team to adapt and succeed against a wide range of opposing teams.
+Despite the many different approaches found online there remains no agreed upon standard of finding the best pokemon team. Even the strongest Teams will get beaten by another team which counters their strengths. This study defines "best" as the ability of the team to adapt and succeed against a wide range of opposing teams and beat a naive team selection process along the way.
 
 ### 1.3 Objectives
 The primary objective of this study is to develop and apply algorithms to identify highly effective pokemon and constellations giving us ground to conclude wether a "best" pokemon team exists. Secondary objectives include measuring the effectiveness of the mentioned algorithms, analyzing the results to determine deciding factors for a "strong" team and visualizing/analyzing different data sets.
@@ -70,19 +109,66 @@ To achieve these goals, the study will make use of data analysis, algorithmic de
 ### 1.5 Thesis Structure
 The remainder of the thesis is structured as follows: Chapter 2 will outline the methodology applied, Chapter 3 presents the implementation and testing phase of all algorithms used. Chapter 4 will discuss the results and findings and Chapter 5 will end the study with a conclusion and discussion of possible future work.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 2. Methodology
-This Chapter will outline the methodology employed to identify the optimal Pokemon team composition. Given the complexity an sheer amount of data caused by over 1000 pokemon with all their stats and abilities this study makes use of several algorithmic approaches such as graph theory, iterative algorithms and breaking down the problem into smaller problems. The methodologies are designed to effectively and rigorously test and validate the best pokemon team against a wide range of opposing team constellations and a threshold team selected during validation.
+This Chapter will outline the methodology employed to identify the optimal Pokemon team composition. Given the complexity an sheer amount of data caused by over 800 pokemon with all their stats and abilities this study makes use of several algorithmic approaches such as graph theory, iterative algorithms and breaking down the problem into smaller problems. The methodologies are designed to effectively and rigorously test and validate the best pokemon team against a wide range of opposing team constellations and a threshold team selected during validation.
 
 ### 2.1 Research Design
-The research follows a quantitative approach focused on measurable performance to asses the strength of a team. An experimental research design was used where strong teams found by the algorithm were tested against tenthousand opponent teams and the performance of a naivly chosen "best team" which consists of the top six individually best performing pokemon. This design gave us ground to assess team performance based on measurable performance metrics such as win-probability against random teams and the baseline of the naively chosen "best team".
+The research follows a quantitative approach focused on measurable performance to asses the strength of a team. An experimental research design was used where strong teams found by the algorithm were tested against several thousand opponent teams and then compared to the performance of a naivly chosen "best team" which consists of the top six individually best performing pokemon. This design gave us ground to assess team performance based on measurable performance metrics such as win-probability against random teams and the baseline of the naively chosen "best team".
 
 ### 2.2 Data Collection
 The Data used for this Project was provided to me by my supervisor in form of a dataset on Kaggle [^1]. The data contains over 800 pokemon, all their learnable abilities, stats and most relevant features to build a battle simulation. Although the data was far from perfectly curated it gave me a base to quickly jump right into the data analysis and development of my methodology.
 
 ### 2.3 Pokémon
-This section is a little interjection but necessary to fully explain the workings of pokémon TODO
+This section is a little interjection but necessary to fully explain the workings of pokémon. As already mentioned pokemon are what this project is mainly about. Pokemon derived from the word pocket monsters are little animal like creatures the player is able to catch and battle for sport against other players. Each pokemon is consists of a few main components which makes them unique:
 
-### 2.4 Data Analysis and Assumptions
+Base Stats: Fundamental attributes that determine a Pokémon's capabilities ranging from 1 - 255. These are species-specific and include:
+- HP (Hit Points): The health of the Pokémon.
+- Attack: The strength of the Pokémon's physical attacks.
+- Defense: The Pokémon's resistance to physical attacks.
+- Special Attack: The strength of the Pokémon's special (non-physical) attacks.
+- Special Defense: The Pokémon's resistance to special attacks.
+- Speed: Determines the order of moves in battle.
+  
+Effort Values (EVs): Points that enhance base stats which are gained after completed battles. Intended to reward the player for sticking to the same pokemon. The values range from 1 - 255 but capped at a sum of 510 across all 6 EVs.
+
+Individual Values (IVs): Inherent values that add to base stats meant to make each pokemon unique. These values are randomly assigned from 0 - 31.
+
+Nature: Affects the growth of certain stats. For each nature one base stat will be increased by 10% and one will be decreased by 10%.
+
+Level: For each Level the pokemon gains their stats will be increased by 1/50 the base stat value, and 1/100 the combined individual value and effort value.
+
+Type: Each pokemon has at least one and at most two unique types out of possible 18 different types. This leaves us with 324 type combinations which each pokemon is assigned one of.
+
+Moves: Based on its type and level each pokemon can learn up to 4 moves which have a specific type and are either normal or special attacks. Given the attack type of the move and the attacking and attacked type of the pokemon the damage will be calculated.
+
+Calculation of final HP:
+${\displaystyle \mathrm {HP} =\left\lfloor {(2\times \mathrm {Base} +\mathrm {IV} +\lfloor {\tfrac {\mathrm {EV} }{4}}\rfloor )\times \mathrm {Level} \over 100}\right\rfloor +\mathrm {Level} +10}$
+
+Calculation of final remaining stats:
+${\displaystyle \mathrm {OtherStat} ={\Biggl \lfloor }{\biggl (}{\Bigl \lfloor }{(2\times \mathrm {Base} +\mathrm {IV} +\lfloor {\tfrac {\mathrm {EV} }{4}}\rfloor )\times \mathrm {Level} \over 100}{\Bigr \rfloor }+5{\biggr )}\times \mathrm {Nature} {\Biggr \rfloor }}$
+
+
+### 2.4 Data Analysis
 In an initial step the data set was carefully examined and corrected where necessary to ensure proper behaviour when used for the algorithms and especially the battle simulation. Given the size of the dataset and complexity of all the connections, several inconsistencies have been identified, such as following different naming conventions, missing id's and other little things which could break the battle simulation if unnoticed. All those little inconsistencies where found and corrected progressively in the process of developing the algorithms.
 
 For the analysis and everything else python emerged as the programming language of choice due to its great support for datascience through libraries such as pandas, numpy, seaborn, matplotlib and network-x which enabled me to really get a feel for the data and the behavior of it.
@@ -91,40 +177,42 @@ The biggest chunk of the analysis was statistical with some venturing into graph
 The analytical approach highlights underlying patterns and relations in the underlying data. The rigorous data cleaning, analysis and visualization paved the way for the developement of the algorithms and the subsequent battle simulation phase of the research.
 
 #### 2.4.1 Assumptions
-In this project, certain assumptions are made to facilitate the analysis process and manage complexity. All Pokémon in the dataset are assumed to be at level 80, with effort values (EVs) set to 85 across all attributes and all individual values (IVs) set uniformly to 16. Furthermore, the nature of all Pokémon is assumed to be hardy. All those values have been chosen to be either the mean value or assure even attribute distribution. This is contrary to the actual game where almost each attribute is chosen at random making every Pokemon unique and it being impossible to create reproducable results. These simplifications allow for a more manageable analysis process and prevent unnecessary complexity that could otherwise blow the project out of proportion. Experienced Pokémon players may notice that some attributes of Pokémon are still missing. These are deliberatly ommitted, as they are deemed unnecessary for battling and are therefore excluded from our research. This brings us to the next section: The Battle Simulation.
+In this project, certain assumptions are made to facilitate the analysis process and manage complexity. All Pokémon in the dataset are assumed to be at level 80, with effort values (EVs) set to 85 across all attributes and all individual values (IVs) set uniformly to 16. Furthermore, the nature of all Pokémon is assumed to be hardy. All those values have been chosen to be either the mean value or assure even attribute distribution. This is contrary to the actual game where almost each attribute is chosen at random making every Pokemon unique and it being impossible to create reproducable results. These simplifications allow for a more manageable analysis process and prevent unnecessary complexity that could otherwise blow the project out of proportion. Experienced Pokémon players may notice that some attributes of Pokémon like for example gender and abilities are still missing. These are deliberatly ommitted, as they are deemed unnecessary for battling and are therefore excluded from our research. 
+As for the move selection I chose a relatively naive approach by precomputing the strongest moves and assigning each pokemon the top 4 "hardest hitting" moves without regard for the situation or opponent. This brings us to the next section: The Battle Simulation.
 
-(talk about move selection)
-
-
-#### 2.4.2 Battle Simulation
+### 2.4.2 Battle Simulation
 This entire project would be impossible to carry out without the battle function. The simulation serves as the foundation for all our assumptions and is crucial for verifying the findings of our simulations. The battle simulation is mainly based on the detailed information available on Bulbapedia. These articles outline the very details of how damage is calculated and how battles are fought out in Pokémon games. Due to the scope limitations of this project, I only focused on the most relevant factors that influence the overall outcome of a battle, such a Pokémons move sets, basic stats and type advantages.
 
-This reduces the formula A to formula B:
+This reduces the formula A:
 
 ${\displaystyle {\text{Damage}}=\left({\frac {\left({\frac {2\times {\text{Level}}}{5}}+2\right)\times {\text{Power}}\times {\frac {A}{D}}}{50}}+2\right)\times {\text{Targets}}\times {\text{PB}}\times {\text{Weather}}\times {\text{GlaiveRush}}\times {\text{Critical}}\times {\text{random}}\times {\text{STAB}}\times {\text{Type}}\times {\text{Burn}}\times {\text{other}}\times {\text{ZMove}}\times {\text{TeraShield}}}$
 
+to formula B:
+ 
 ${\displaystyle {\text{Damage}}=\left({\frac {\left({\frac {2\times {\text{Level}}}{5}}+2\right)\times {\text{Power}}\times {\frac {A}{D}}}{50}}+2\right)\times {\text{random}}\times {\text{STAB}}\times {\text{Type}}}$
 
 
 To put this into perspective, it is worth noting the development of Pokémon Showdown, the main competitive platform Pokémon enthusiasts turn to, started in 2012 as an open source project is still ongoing. This highlights the complexity and depth of accurately simulating Pokémon battles taking into account all the niche cases like weather, held items, status effects ecetera. By limiting the scope to the most critical elements, the battle simulation aims to provide a realistic yet manageable representation of Pokémon battles and serves as the base for this project.
 
 ### 2.5 Algorithmic Approaches
-In this Section I will go over all the different approaches I used to evaluate wether there is a significantly better team than firstly naivly selected team based on simulation against a generous amount of randomly generated teams. The foundation of all my algorithmic approaches is an initial simulation where each Pokémon battles against every other Pokémon to determine which ones perform the best giving me a starting point for all my approaches.
-
-!!!*This comprehensive performance matrix, illustrated by an image of the first 151 Pokémon from Generation 1, serves as a visual representation to help grasp the performance of each Pokémon and guides the development of subsequent algorithms.*!!!
+In this Section I will go over all the different approaches I used to evaluate wether there is a significantly better team than a naivly selected team based on simulation against a generous amount of randomly generated teams. The foundation of all my algorithmic approaches is an initial simulation where each Pokémon battles against every other Pokémon to determine which ones perform the best giving me a starting point for all my approaches.
 
 #### 2.5.1 Graph Theory Algorithms
-In the early stages I primarily concerned myself with graph theory and ranking algorithms to get a feel for the individual pokemon. Using the network library NetworkX I quickly was set up for initial analysis of all pokemon and their relations. Using this Network which has a node for each pokemon and an edge from pokemon A to B if pokemon A beats pokemon B with $\text{probability p} \geq \text{threshold}$ . Initially I was on the lookout for Kings and Dominating Sets. Kings are defined as as Vertices which can reach any Vertex through a path of length 1. A n-King is a Vertex which does the same but using n Edges. Using this I wanted to Rule out the exisence of clear *must Pick* pokemon. Besides that I looked into the existance of minimal Dominating Sets where the Vertex count is $\leq 6$ . A dominating Set D is a Vertex subset of a graph G where each Node of G is either in D or gets dominated (has an incoming node) from D. By attempting to find such a dominating set I investigated the existance of good teams which "dominate" the whole list of remaining Pokemon. ~~Next I looked into different ranking algorithms like Pagerank and others to identify differences to the very rudimentary ranking of pokemon by their average win probability. Finally I looked into Communities and if there are any noteworthy interconnection points or gaps in the graph which force teams to have certain pokemon on their roster in order to be successful.~~
+In the early stages I primarily concerned myself with graph theory and ranking algorithms to get a feel for the individual pokemon. Using the network library NetworkX I quickly was set up for initial analysis of all pokemon and their relations. Using this Network which has a node for each pokemon and an edge from pokemon A to B if pokemon A beats pokemon B with $\text{probability p} \geq \text{threshold}$ . Initially I was on the lookout for Kings and Dominating Sets. Kings are defined as as Vertices which can reach any Vertex through a path of length 1. A n-King is a Vertex which does the same but using n Edges. Using this I wanted to Rule out the exisence of clear *must Pick* pokemon. Besides that I looked into the existance of minimal Dominating Sets where the Vertex count is $\leq 6$ . A dominating Set D is a Vertex subset of a graph G where each Node of G is either in D or gets dominated (has an incoming node) from D. By attempting to find such a dominating set I investigated the existance of good teams which "dominate" the whole list of remaining Pokemon forming a good team.
 
 #### 2.5.2 Iterative Methods
-After finishing up the Graph Theoretical approach of identifying a best Pokemon team I mainly concerned myself with an iterative approach which starts out with a randomly assembled team and tries to converge onto a *best team* by improving the randomly assembled team iteratively. Due to very similar results in performance when improving over and over again I needed to look into reducing the overall noise in the win probability of the teams which performed well. The noise in win probabilities was assumed to exist because of many random teams battles outcomes being clear due to super weak pokemon. To distinguis the great teams from the good in this noise I either had to run many magnitudes more battles or I needed a way to remove super weak pokemon out of the random opponenets. Besides that not every pokemon had a realistic chance of being selected into the final 6 of the *best team* possibly reducing the number of rounds the algorithm had to run. This is assumed to be due to certain Pokemon being either consistently to weak or there existing a Pokemon which outperforms the weaker pokemon in every stat category.
+After finishing up the Graph Theoretical approach of identifying a best Pokemon team I mainly concerned myself with an iterative approach which starts out with a randomly assembled team and tries to converge onto a *best team* by improving the randomly assembled team iteratively. Due to very similar results in performance between the top teams when improving over and over again I needed to look into reducing the overall noise in the win probability. The noise in win probabilities was assumed to exist because of many random teams battles outcomes being clear due to super weak pokemon. To distinguish the great teams from the good in this noise I either had to run many magnitudes more battles or I needed a way to remove super weak pokemon out of the random opponenets. Besides that not every pokemon had a realistic chance of being selected into the final 6 of the *best team* possibly reducing the number of rounds the algorithm had to run. This is assumed to be due to certain Pokemon being either consistently to weak or there existing a Pokemon which outperforms the weaker pokemon in every stat category.
 
 Generally the algorithms used to tackle these problems can be divided into two groups. Firstly Algorithms which have been used to shrink the number of pokemon which might belong into the best pokemon team, lets call this candidate pool, and secondly reducing the number of pokemons which a team can face to give battles some meaning and reduce overall noise, called opponent pool.
 
-The candidate- and opponent pool are assumed to be equal in the beginning with every pokemon being in it. The main practices used to reduce the size of the pools is based upon previous data analysis. The process of elimination revolved around the question "can this pokemon be replaced directly by one or more pokemon which are equally as good or better in all its relevant stats?". For this I tried several strategies:
+The candidate- and opponent pool are assumed to be equal in the beginning with every pokemon being in it. The main practices used to reduce the size of the pools is based upon previous data analysis. The process of reducing the aforementioned pools revolved around the question "can this pokemon be replaced directly by one or more pokemon which are equally as good or better in all its relevant stats?". For this I tried several strategies:
 
-##### Top performing Pokemon by type and Battles
+##### Top performing Pokemon by Type Stats and Battles
 There are 324 ( $\binom{18}{2} + 18$ ) type combinations. I looked at every other same typed pokemon A and B and checked if pokemon B has equal or better stats than pokemon A and beats all opposing pokemon. If so B can replace A.
+
+##### Top performing Pokemon by Stats and Batles
+When looking at the data and finding two pokémon who beat the same pokemon we can eliminate the "weaker one" if all of its stats are equal or worse than those of the stronger one.
+
 ##### Top n performing Pokemon by type
 Using the same approach we can reduce the number even further by just picking the top n pokemon for each type combination. This in the best case gives us at minimum 171 pokemon, one for each type, since only 171 of the 324 type combinations are used.
 
@@ -134,6 +222,25 @@ This also meant that I finally needed to take advantage the computing cluster, w
 
 ### 2.6 Conclusion
 My supervisor provided me with the flexibility to explore several approaches, as there is no clear best way to tackle such a complex optimization problem. This allowed me to be dynamic and adaptive with my research, enabling me to experiment with graph theoretical methods, iterative techniques, and simulation-based evaluations, leading to a more exploratory and on the go process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## 3. Implementation
@@ -438,6 +545,26 @@ Since showing all examples would be a bit much I will just use the case from tea
             main()
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 4. Results
 The results section of this thesis presents an analysis of the various methodologies used to identify the optimal Pokémon team. Each attempted approach is revisited in detail, showcasing the findings through a series of images, graphs, and tables to illustrate the performance of different team configurations. The primary goal is to evaluate the effectiveness of each strategy and to highlight the insights gained from these analyses.
 
@@ -494,34 +621,37 @@ Using our functions for dominating sets we find the following dominating sets in
 
 `out_degree_dominating_set(G)`: ```{'Snorlax', 'Mewtwo', 'Dragonite'}```  
 `brute_find_dominating_sets(G)`: ```[{'Dragonite', 'Gengar', 'Snorlax'}, {'Dragonite', 'Mewtwo', 'Snorlax'}]```  
-`nx.dominating_set(G)`: ```{'Alakazam', 'Mew', 'Krabby', 'Zapdos', 'Tentacool', 'Poliwrath', 'Dugtrio', 'Pinsir', 'Magneton', 'Golduck', 'Tentacruel', 'Starmie', 'Omastar', 'Mewtwo', 'Exeggutor', 'Dragonite', 'Haunter}```  
+`nx.dominating_set(G)`: ```{'Alakazam', 'Mew', 'Krabby', 'Zapdos', 'Tentacool', 'Poliwrath', 'Dugtrio', 'Pinsir', 'Magneton', 'Golduck', 'Tentacruel', 'Starmie', 'Omastar', 'Mewtwo', 'Exeggutor', 'Dragonite', 'Haunter}```
+
+For bigger subsets of the whole dataset we cannot really find any dominating sets as it turns out to be too computationally demanding.
 
 (Although different results are achieved due to randomness in its implementation the functions implemented by myself are a lot quicker in the case of the `out_degree_dominating_set(G)` function and find a smaller subset in both of my implemented functions)
 
 
 #### 4.2.2 Finding k-Kings
+No 1-kings k = 1  were identified in the analysis. For the first generation of Pokémon, Snorlax was the only Pokémon identified as a 2-king. Across all 802 Pokémon, Lunala was identified as a 2-king. If we further increase k, we find too many Pokémon, making meaningful analysis difficult.
 
+### 4.3 Iterative Approach
+Using this approach I was not able to identify any significantly better teams. It happend that the threshold team got outperformed in certain iterations but usually the top team remained the treshold team.
 
+### 4.4 Incremental Team Optimization
+The findings from the Incremental Team Optimization are the most interesting for this project. Although I was unable to predict the outcomes based on the results of smaller teams the threshold team consistently got outperformed when looking at the top 20 perfoming hextuples. Despite the difference in win probabilities being only minimal (a few ~100 wins over a simulation of 1000000 battles) the results are statistically significant according to Spearman's rank correlation coefficient with a p-value of `0.0038529945186214815`. Notably, Lunala, our only identified 2-king, is highly present in the top-performing teams. This suggests that our initial approach of looking for k-kings as essential picks is indeed a valid strategy.
 
-
-
-2. **Incremental Team Optimization**: This approach involved iteratively improving team compositions by evaluating smaller subsets of Pokémon, expanding them progressively, and validating their performance through extensive simulations.
-3. **Fusion-Based Team Building**: Starting from pairs, we incrementally formed larger teams based on shared members and performance predictions, continually refining our selections through simulated battles.
-4. **Iterative Best Team Approach**: Utilizing a combination of random sampling and performance-based selection, this method aimed to identify the best-performing teams through a series of iterative simulations and evaluations.
-5. **Predictive Performance Models**: We developed models to predict team performance based on individual and smaller team metrics, aiming to reduce computational demands by focusing on promising team configurations.
-6. **Cluster Simulations**: To handle the computational complexity, we employed cluster computing resources, enabling us to run large-scale simulations and obtain robust performance data for extensive team combinations.
-
-Each section includes detailed results, supported by visualizations such as tables and figures, to provide clear and concise representations of the data. These visual aids are crucial for understanding the progression of team optimization and the relative performance of different team configurations.
-
-In addition to presenting the results, we also discuss any unexpected outcomes and the implications of our findings for future research. Limitations encountered during the study are addressed, and potential directions for further investigation are suggested.
-
-By systematically reviewing each attempted strategy and presenting the results with clarity, this section aims to provide a thorough understanding of the incremental team optimization process and its efficacy in identifying the best Pokémon teams.
 
 ## 5. Conclusion
+Over the course of my project, I identified a best-performing Pokémon team, although it only marginally outperformed other teams. Using graph theory proved to be a helpful tool in reasoning about Pokémon teams, offering insights into their strengths and interactions. This approach can be particularly useful in identifying key Pokémon and understanding the dynamics of team compositions. Despite the marginal improvement, the findings highlight the potential of graph theory and iterative team improvements as a valuable framework for analyzing and optimizing Pokémon teams.
 
-- Summary of key findings
-- Contributions to the field
-- Recommendations for future research
+### 5.1 Future Research Directions
+
+If I had more time to dedicate to further research, I would focus on several key areas to enhance the analysis and optimization of Pokémon teams. Firstly, I would explore a more sophisticated move selection process for the Pokémon, ensuring that each move set is optimized for various battle scenarios. This would involve a detailed analysis of move effectiveness and synergy with team strategies.
+
+Additionally, I would concentrate on team constellations, identifying which Pokémon work well together and how their combined strengths can be maximized. This aspect is crucial for building balanced and synergistic teams that can handle diverse opponents effectively.
+
+Moreover, I would aim to refine the iterative approach further. Although it showed some potential, the results turned out to be diminishing over time. By enhancing the iterative method, I believe more significant improvements in team performance could be achieved. This would involve fine-tuning the algorithms used, increasing the number of iterations, and incorporating more sophisticated evaluation metrics to better capture the dynamics of Pokémon battles.
+
+In summary, these refinements and deeper analyses would likely yield more robust and effective Pokémon team compositions, leveraging the full potential of the data and methodologies applied in this research.
+
+
 
 ## 6. References
 
