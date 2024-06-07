@@ -353,14 +353,8 @@ Given the computational complexity of simulating battles for teams of size 6, we
 4. Simulate battles between these pairs and random teams to evaluate their performance.
 5. Compare the rankings between the prediction and simulation to gain insights about whether predicting good performing teams is possible.
 6. Incrementally build larger teams by fusing smaller teams, adding one Pokémon at a time, based on shared members.
+7. Repeat this process but starting with all teams of size 2.
 
-#### Process Summary
-
-1. **Create Initial Teams**: Form all `20 choose 2` pairs from the top 20 Pokémon.
-2. **Predict Performance**: Use the performance of smaller teams to predict the performance of the newly formed larger teams.
-3. **Simulate Battles**: Evaluate the performance of these pairs against random teams.
-5. **Compare**: Compare the results with the predictions to gain insights about the quality of the prediction.
-6. **Repeat**: Continue the process, increasing the team size by one each iteration until reaching teams of size 6.
 
 
 
@@ -392,6 +386,8 @@ While the battle simulation results do not directly pinpoint the optimal Pokémo
 ![First Generation Win Probability](Matrix_151.png)
 
 **The top 10 individual performing Pokémon for the 1. Generation are:**
+
+
 | *Rank* | *Pokémon* | *Win Probability* |
 | --- | --- | --- |
 | 1. | Mewtwo | 0.9674788079470197 |
@@ -406,6 +402,8 @@ While the battle simulation results do not directly pinpoint the optimal Pokémo
 | 10. | Hitmonchan | 0.8225529801324505 |
 
 **The top 10 individual performing Pokémon for the the whole Dataset are:**
+
+
 | *Rank* | *Pokémon* | *Win Probability* |
 | --- | --- | --- |
 | 1. | Giratina (Altered Forme) | 0.9610472568578559 |
