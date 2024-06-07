@@ -26,13 +26,36 @@ This bachelor's thesis concerns itself with the finding of the best Pokémon Tea
 
 
 ## Table of Contents
+# Table of Contents
+
+- [Abstract](#abstract)
 - [1. Introduction](#1-introduction)
+  - [1.1 Motivation](#11-motivation)
+  - [1.2 Problem Statement](#12-problem-statement)
+  - [1.3 Objectives](#13-objectives)
+  - [1.4 Methodology Overview](#14-methodology-overview)
+  - [1.5 Thesis Structure](#15-thesis-structure)
 - [2. Methodology](#2-methodology)
+  - [2.1 Research Design](#21-research-design)
+  - [2.2 Data Collection](#22-data-collection)
+  - [2.3 Pokémon](#23-pokémon)
+  - [2.4 Data Analysis](#24-data-analysis)
+  - [2.5 Algorithmic Approaches](#25-algorithmic-approaches)
+  - [2.6 Summary](#26-summary)
 - [3. Implementation](#3-implementation)
+  - [3.1 Battle Simulation](#31-battle-simulation)
+  - [3.2 Graph Theory Algorithms](#32-graph-theory-algorithms)
+  - [3.3 Iterative Algorithm](#33-iterative-algorithm)
+  - [3.4 Incremental Team Optimization](#34-incremental-team-optimization)
 - [4. Results](#4-results)
-- [5. Discussion](#5-discussion)
-- [6. Conclusion](#6-conclusion)
-- [7. References](#7-references)
+  - [4.1 Results Battle Simulation](#41-results-battle-simulation)
+  - [4.2 Results Graph Theory Algorithms](#42-results-graph-theory-algorithms)
+  - [4.3 Iterative Approach](#43-iterative-approach)
+  - [4.4 Incremental Team Optimization](#44-incremental-team-optimization)
+- [5. Conclusion](#5-conclusion)
+  - [5.1 Future Research Directions](#51-future-research-directions)
+- [6. References](#6-references)
+
 
 
 
