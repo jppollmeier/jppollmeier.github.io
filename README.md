@@ -475,7 +475,7 @@ Example table afer 1000000 battles simulated:
 
 
 ## 5. Conclusion
-Over the course of my project,I identified a best-performing Pokémon team, although it only marginally outperformed other teams. Using graph theory proved to be a helpful tool in reasoning about Pokémon teams, offering insights into their strengths and interactions. This approach can be particularly useful in identifying key Pokémon and understanding the dynamics of team compositions. Despite the marginal improvement, the findings highlight the potential of graph theory and iterative team improvements as a valuable framework for analyzing and optimizing Pokémon teams.
+Over the course of my project, I identified a best-performing Pokémon team using the incremental team optimization approach, although the threshold team only marginally got outperformed by "better" teams. Using graph theory proved to be a helpful tool in reasoning about Pokémon teams, offering insights into their strengths and interactions. This approach can be particularly useful in identifying key Pokémon and understanding the dynamics of team compositions. Despite the marginal improvement, the findings highlight the potential of graph theory and iterative team improvements as a valuable framework for analyzing and optimizing Pokémon teams. 
 
 ### 5.1 Future Research Directions
 
