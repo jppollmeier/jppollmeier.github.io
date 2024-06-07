@@ -490,4 +490,4 @@ In summary, these refinements and deeper analyses would likely yield more robust
 
 ## 6. References
 [^1]: [Kaggle dataset](https://www.kaggle.com/datasets/mylesoneill/Pokémon-sun-and-moon-gen-7-stats?select=moves.csv).
-[^2]: [GitHub Repository]([Testtest](https://gitlab.ethz.ch/disco-students/hs23/best-pokemon-team/-/tree/main/Code))
+[^2]: [GitHub Repository](https://gitlab.ethz.ch/disco-students/hs23/best-pokemon-team/-/tree/main/Code)
