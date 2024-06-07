@@ -445,7 +445,7 @@ Using this approachIwas not able to identify any significantly better teams. It 
 The findings from the Incremental Team Optimization are the most interesting for this project. I was unable to predict the outcomes based on the results of smaller teams removing the option of shortcutting the simulation process by predicting the outcomes. When identifying the top 20 perfoming teams of size 6 we find that the threshold team consistently gets outperformed over a simulation of 1000000 battles. Despite the difference in win probabilities being only minimal (a few ~100 wins over a simulation of 1000000 battles) the results are statistically significant according to Spearman's rank correlation coefficient with a p-value of `0.0038529945186214815`. Notably, Lunala, our only identified 2-king, is highly present (15/20 teams) in the top 20 performing teams. This suggests that our initial approach of looking for k-kings as essential picks is indeed a valid strategy.
 
 Example table afer 1000000 battles simulated:
-| Pokémon 1     | Pokémon 2             | Pokémon 3           | Pokémon 4         | Pokémon 5         | Pokémon 6     | Win Probability |
+| Pokémon 1 | Pokémon 2 | Pokémon 3 | Pokémon 4 | Pokémon 5 | Pokémon 6 | Win Probability |
 | ------------- | --------------------- | ------------------- | ----------------- | ----------------- | ------------- | --------------- |
 | Lugia         | Giratina (Altered Forme) | Xerneas             | Yveltal            | Lunala             | Magearna      | 0.999913        |
 | Ho-Oh         | Arceus (Normal)         | Zekrom              | Xerneas            | Yveltal            | Lunala        | 0.999873        |
