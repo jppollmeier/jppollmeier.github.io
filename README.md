@@ -322,67 +322,16 @@ The following algorithm iteratively identifies top-performing Pokémon teams by 
 3. **Output**:
     - The algorithm returns the top Pokémon IDs after the final iteration and prints running win percentages of the top 10 teams along the way.
 
-```python
-from scripts.Team import Team
-from collections import Counter
-from scripts.Battle import teamBattle
-
-def run_battle_simulation(team_combinations, number_of_opponents, id_set, custom_opponent_teams=None):
-    win_counts = {}
-    if custom_opponent_teams is None:
-        custom_opponent_teams = []
-    fixed_opponent_teams = [Team(*random.sample(id_set, 6)) for _ in range(number_of_opponents)] + custom_opponent_teams
-    for team_combo in team_combinations:
-        win_counts[team_combo] = 0
-        team1 = Team(*team_combo)
-        for opponent_team in fixed_opponent_teams:
-            opponent_team.reset()
-            team1.reset()
-            result = teamBattle(team1, opponent_team)
-            if result == 1:
-                win_counts[team_combo] += 1
-    return win_counts
-
-def find_top_performers(win_counts, top_n):
-    sorted_teams = sorted(win_counts.items(), key=lambda x: x[1], reverse=True)
-    top_teams = sorted_teams[:top_n]
-    top_Pokémon = [Pokémon for team, _ in top_teams for Pokémon in team]
-    return Counter(top_Pokémon), top_teams
-
-def iterative_best(iterations=100, id_set=list(range(1, 803)), subset_size=12, top_teams_to_consider=10, start_battles=100, end_battles=200, print_teams=False):
-    current_ids = random.sample(id_set, subset_size)
-    for iteration in range(iterations):
-        number_of_opponents = int((start_battles + ((end_battles - start_battles) * (iteration / (iterations-1)))))
-        team_combinations = list(itertools.combinations(current_ids, 6))
-        custom_opponent_teams = [Team(*random.sample(current_ids, 6)) for _ in range(number_of_opponents)]
-        win_counts = run_battle_simulation(team_combinations, number_of_opponents, id_set, custom_opponent_teams)
-        top_Pokémon_counter, top_teams = find_top_performers(win_counts, top_teams_to_consider)
-        top_ids = [id for id, _ in top_Pokémon_counter.most_common(6)]
-        new_Pokémon_ids = []
-        unique_current_ids = set(top_ids[:6])
-        while len(unique_current_ids) < subset_size:
-            new_id = random.choice(id_set)
-            if new_id not in unique_current_ids:
-                unique_current_ids.add(new_id)
-                new_Pokémon_ids.append(new_id)
-                id_set.remove(new_id)
-        current_ids = list(unique_current_ids)
-        if print_teams:
-            print(f"\nTop 10 Teams from Iteration {iteration + 1}:")
-            for team, win_count in top_teams[:10]:
-                team_win_rate = (win_count / (number_of_opponents + len(custom_opponent_teams))) * 100
-                print(f"Team {team}: {win_count} wins ({team_win_rate:.2f}%)")
-    return top_ids
-```
-
 
 ### 3.4 Incremental Team Optimization
-Given the computational complexity of simulating battles for full 6v6 teams, we started with smaller subproblems. The main idea is to:
+Given the computational complexity of simulating battles for teams of size 6, we started with smaller subproblems. The main idea is to:
 
 1. Identify the top 20 individually performing Pokémon.
 2. Create all possible pairs (combinations) from these 20 Pokémon.
-3. Predict and Simulate battles between these pairs and random teams to evaluate their performance and gain knowledge about the behavior of the teams.
-4. Incrementally build larger teams by fusing smaller teams, adding one Pokémon at a time, based on shared members and predicted performance.
+3. Predict the outcomes of the battles against random teams based on their individual performance.
+4. Simulate battles between these pairs and random teams to evaluate their performance.
+5. Compare the rankings between the prediction and simulation to gain insights about wether predicting good performing teams is possible.
+6. Incrementally build larger teams by fusing smaller teams, adding one Pokémon at a time, based on shared members.
 
 #### Process Summary
 
@@ -391,123 +340,6 @@ Given the computational complexity of simulating battles for full 6v6 teams, we 
 3. **Simulate Battles**: Evaluate the performance of these pairs against random teams.
 5. **Compare**: Compare the results with the predictions to gain insights about the quality of the prediction.
 6. **Repeat**: Continue the process, increasing the team size by one each iteration until reaching teams of size 6.
-
-
-Since showing all examples would be a bit muchIwill just use the case from teams of size 3 to teams of size 4 as an example:
-#### Prediction from triples to Quadruples
-    
-```Python
-        def fuse_to_quadruples(ranked_results_df):
-            ranked_results = {tuple(sorted(map(int, row[:3]))): row[3] for row in ranked_results_df.to_numpy()}
-            tuple_set = set(ranked_results.keys())
-            quadruples = {}
-            counts = {}
-            
-            # Check each pair of triples
-            for idx1, avg_score1 in ranked_results.items():
-                for idx2, avg_score2 in ranked_results.items():
-                    if idx1 != idx2:
-                        shared_ids = tuple(set(idx1).intersection(idx2))
-                        if len(shared_ids) == 2:  # Two IDs shared between the triples
-                            all_ids = sorted(set(idx1).union(set(idx2)))
-                            if len(all_ids) == 4:  # We're forming a quadruple
-                                # Create all combinations of triples from the four IDs
-                                all_triples = list(combinations(all_ids, 3))
-                                # Verify all necessary triples exist
-                                if all(triple in tuple_set for triple in all_triples):
-                                    quad_key = tuple(all_ids)
-                                    total_score = avg_score1 + avg_score2
-                                    # Add scores for the other two triples
-                                    for triple in all_triples:
-                                        if triple not in (idx1, idx2):
-                                            total_score += ranked_results.get(triple, 0)
-                                    quadruples[quad_key] = quadruples.get(quad_key, 0) + total_score
-                                    counts[quad_key] = counts.get(quad_key, 0) + 1
-        
-            # Average the scores for each quadruple
-            for quad_key in quadruples:
-                quadruples[quad_key] /= counts[quad_key]
-        
-            if quadruples:
-                sorted_quadruples = sorted(quadruples.items(), key=lambda item: item[1], reverse=True)
-                quadruples_df = pd.DataFrame(sorted_quadruples, columns=['IDs', 'Average'])
-                quadruples_df[['ID1', 'ID2', 'ID3', 'ID4']] = pd.DataFrame(quadruples_df['IDs'].tolist(), index=quadruples_df.index)
-                quadruples_df.drop('IDs', axis=1, inplace=True)
-                quadruples_df = quadruples_df[['ID1', 'ID2', 'ID3', 'ID4', 'Average']]
-            else:
-                # Create an empty DataFrame with the correct columns if no quadruples exist
-                quadruples_df = pd.DataFrame(columns=['ID1', 'ID2', 'ID3', 'ID4', 'Average'])
-        
-            return quadruples_df
-        
-        def main():
-            triples_sorted = pd.read_csv('./tuples/triples_sorted.csv')
-            quadruples_df = fuse_to_quadruples(triples_sorted)
-            if not quadruples_df.empty:
-                quadruples_df['ID1'] = quadruples_df['ID1'].astype(int)
-                quadruples_df['ID2'] = quadruples_df['ID2'].astype(int)
-                quadruples_df['ID3'] = quadruples_df['ID3'].astype(int)
-                quadruples_df['ID4'] = quadruples_df['ID4'].astype(int)
-            quadruples_df.to_csv('./tuples/quadruples_predict.csv', index=False)
-            print(f"Saved sorted fused quadruples to './tuples/quadruples_predict.csv', total count: {len(quadruples_df)}")
-        
-        if __name__ == "__main__":
-            main()
-```
-        
-#### Simulation of Quadruples
-
-```Python
-        def generate_random_teams(num_teams, team_size=4):
-            teams = []
-            for _ in range(num_teams):
-                team = Team.Team(team_size=team_size)
-                teams.append(team)
-            return teams
-        
-        def main():
-            # Load the quadruples data from CSV
-            quadruples_df = pd.read_csv('./tuples/quadruples_predict.csv')
-        
-            num_battles = 10
-            num_opps = 100  # Total number of random opponents
-        
-            job_index = int(sys.argv[1])  # Job array index from command line argument
-            chunk_size = 10  # Number of teams each job should process
-            start_index = (job_index - 1) * chunk_size
-            end_index = min(job_index * chunk_size, num_opps)
-        
-            random_teams = generate_random_teams(num_opps, team_size=4)
-        
-            # Create an empty results matrix
-            results_matrix = np.zeros((len(quadruples_df), end_index - start_index))
-        
-            # Directory to save the matrices
-            output_dir = './output/quadruples_results'
-            if not os.path.exists(output_dir):
-                os.makedirs(output_dir)
-        
-            # Save the partial results matrix for this chunk
-            file_path = os.path.join(output_dir, f"results_matrix_chunk_{job_index}.csv")
-        
-            for i, row in enumerate(quadruples_df.itertuples()):
-                team1 = Team.Team(row.ID1, row.ID2, row.ID3, row.ID4, team_size=4)
-                for j, team2 in enumerate(random_teams[start_index:end_index], start=start_index):
-                    total_score = 0
-                    for _ in range(num_battles):
-                        result = Battle.teamBattle(team1, team2)
-                        total_score += result
-                        team1.reset()
-                        team2.reset()
-                    results_matrix[i, j - start_index] = total_score / num_battles
-        
-            # Constructing the DataFrame for the results with ID1, ID2, ID3, ID4, and corresponding team results
-            ids_and_results_df = pd.concat([quadruples_df[['ID1', 'ID2', 'ID3', 'ID4']], pd.DataFrame(results_matrix, columns=[f"team_{j}" for j in range(start_index, end_index)])], axis=1)
-            ids_and_results_df.to_csv(file_path, index=False, index_label='ID')
-        
-        if __name__ == "__main__":
-            main()
-```
 
 
 
@@ -530,12 +362,10 @@ Since showing all examples would be a bit muchIwill just use the case from teams
 
 
 ## 4. Results
-The results section of this thesis presents an analysis of the various methodologies used to identify the optimal Pokémon team. Each attempted approach is revisited in detail, showcasing the findings through a series of images, graphs, and tables to illustrate the performance of different team configurations. The primary goal is to evaluate the effectiveness of each strategy and to highlight the insights gained from these analyses.
+Let's now look at the results of each attempted approach. We will go through each approach one by one and revisit them in detail. Using graphs and figures I will try to highligh some of the findings. The primary goal is to evaluate the effectiveness of each strategy and to collect the insights gained from these analyses.
 
 ### 4.1 Results Battle Simulation
-While the battle simulation results do not directly pinpoint the optimal Pokémon team, they offer valuable insights into the performance characteristics and interactions of different team configurations. These findings lay the groundwork for more targeted analyses and highlight the complexity of the optimization problem. The visualizations included in this section help convey the nuances of the data, offering a clear view of the underlying dynamics at play and is a fun visualization for Pokémon fanatics.
-
-By exploring these results, we gain a deeper appreciation of the challenges and potential strategies for building effective Pokémon teams. This section serves as a crucial step in our overall analysis, bridging the gap between theoretical models and practical performance.
+While the battle simulation results do not directly pinpoint the optimal Pokémon team, they offer valuable insights into the performance characteristics and interactions of different team configurations. These findings lay the groundwork for more targeted analyses and highlight the complexity of the optimization problem. The visualizations included in this section help convey the nuances of the data, offering a clear view of the underlying dynamics at play and are a fun visualization for Pokémon fanatics.
 
 ![First 10 Pokémon Win Probability](Matrix_10.png)
 ![First Generation Win Probability](Matrix_151.png)
@@ -568,17 +398,11 @@ By exploring these results, we gain a deeper appreciation of the challenges and 
 | 9. | Reshiram | 0.9232175810473824 |
 | 10. | Magearna | 0.9210951371571086 |
 
-
 This gives us the following naively picked best team: *Giratina (Altered Forme), Lunala, Arceus, Dialga, Solgaleo, Ho-Oh*
-
-
-
-
-
 
 ### 4.2 Results Graph Theory Algorithms
 In this section, we delve into the application of graph theory to analyze the interconnections and performance of Pokémon teams. We begin with a graphic that illustrates the different interconnections within a graph, providing a visual representation of the relationships and interactions between the first 10 Pokémon based on their battle outcomes:
-![Graph Win Probabiliy](Graph1000_10.png)
+![Graph Visualization for first 10 Pokémon](Graph_10.png)
 
 #### 4.2.1 Dominating Sets
 Using our functions for dominating sets we find the following dominating sets in the first 151 Pokémon:
@@ -587,38 +411,33 @@ Using our functions for dominating sets we find the following dominating sets in
 `brute_find_dominating_sets(G)`: ```[{'Dragonite', 'Gengar', 'Snorlax'}, {'Dragonite', 'Mewtwo', 'Snorlax'}]```  
 `nx.dominating_set(G)`: ```{'Alakazam', 'Mew', 'Krabby', 'Zapdos', 'Tentacool', 'Poliwrath', 'Dugtrio', 'Pinsir', 'Magneton', 'Golduck', 'Tentacruel', 'Starmie', 'Omastar', 'Mewtwo', 'Exeggutor', 'Dragonite', 'Haunter}```
 
-For bigger subsets of the whole dataset we cannot really find any dominating sets as it turns out to be too computationally demanding.
-
-(Although different results are achieved due to randomness in its implementation the functions implemented by myself are a lot quicker in the case of the `out_degree_dominating_set(G)` function and find a smaller subset in both of my implemented functions)
+Using the existing function `nx.dominating_set(G)` is not an option due to its randomness when finding dominating sets as they are not minimal. The functions implemented by myself are a lot quicker in the case of the `out_degree_dominating_set(G)` function and find a minimal subset in both of my implemented functions. For bigger subsets of the whole dataset we cannot really find any minimal dominating sets as it turns out to be too computationally demanding. Although not possible for bigger subsets I confirmed that all 4 Pokémon (*Dragonite, Gengar, Snorlax, Mewtwo*) found in the minimal dominating sets were present in the top performing teams of size 6 in the incremental team optimization.
 
 
 #### 4.2.2 Finding k-Kings
 No 1-kings k = 1  were identified in the analysis. For the first generation of Pokémon, Snorlax was the only Pokémon identified as a 2-king. Across all 802 Pokémon, Lunala was identified as a 2-king. If we further increase k, we find too many Pokémon, making meaningful analysis difficult.
 
 ### 4.3 Iterative Approach
-Using this approachIwas not able to identify any significantly better teams. It happend that the threshold team got outperformed in certain iterations but usually the top team remained the treshold team.
+Using this approachIwas not able to identify any significantly better teams. It happend that the naively selected threshold team got outperformed in certain iterations but the threshold team always ended back on top in the final iteration.
 
 ### 4.4 Incremental Team Optimization
-The findings from the Incremental Team Optimization are the most interesting for this project. AlthoughIwas unable to predict the outcomes based on the results of smaller teams the threshold team consistently got outperformed when looking at the top 20 perfoming hextuples. Despite the difference in win probabilities being only minimal (a few ~100 wins over a simulation of 1000000 battles) the results are statistically significant according to Spearman's rank correlation coefficient with a p-value of `0.0038529945186214815`. Notably, Lunala, our only identified 2-king, is highly present in the top-performing teams. This suggests that our initial approach of looking for k-kings as essential picks is indeed a valid strategy.
-
+The findings from the Incremental Team Optimization are the most interesting for this project. I was unable to predict the outcomes based on the results of smaller teams removing the option of shortcutting the simulation process by predicting the outcomes. When identifying the top 20 perfoming teams of size 6 we find that the threshold team consistently gets outperformed over a simulation of 1000000 battles. Despite the difference in win probabilities being only minimal (a few ~100 wins over a simulation of 1000000 battles) the results are statistically significant according to Spearman's rank correlation coefficient with a p-value of `0.0038529945186214815`. Notably, Lunala, our only identified 2-king, is highly present (15/20 teams) in the top 20 performing teams. This suggests that our initial approach of looking for k-kings as essential picks is indeed a valid strategy.
 
 ## 5. Conclusion
-Over the course of my project,Iidentified a best-performing Pokémon team, although it only marginally outperformed other teams. Using graph theory proved to be a helpful tool in reasoning about Pokémon teams, offering insights into their strengths and interactions. This approach can be particularly useful in identifying key Pokémon and understanding the dynamics of team compositions. Despite the marginal improvement, the findings highlight the potential of graph theory and iterative team improvements as a valuable framework for analyzing and optimizing Pokémon teams.
+Over the course of my project,I identified a best-performing Pokémon team, although it only marginally outperformed other teams. Using graph theory proved to be a helpful tool in reasoning about Pokémon teams, offering insights into their strengths and interactions. This approach can be particularly useful in identifying key Pokémon and understanding the dynamics of team compositions. Despite the marginal improvement, the findings highlight the potential of graph theory and iterative team improvements as a valuable framework for analyzing and optimizing Pokémon teams.
 
 ### 5.1 Future Research Directions
 
-IfIhad more time to dedicate to further research,Iwould focus on several key areas to enhance the analysis and optimization of Pokémon teams. Firstly,Iwould explore a more sophisticated move selection process for the Pokémon, ensuring that each move set is optimized for various battle scenarios. This would involve a detailed analysis of move effectiveness and synergy with team strategies.
+If I had more time to dedicate to the project, I would explore a more sophisticated move selection process for the Pokémon, ensuring that each move set is optimized for various battle scenarios. This would involve a detailed analysis of move effectiveness and synergy with team strategies.
 
-Additionally,Iwould concentrate on team constellations, identifying which Pokémon work well together and how their combined strengths can be maximized. This aspect is crucial for building balanced and synergistic teams that can handle diverse opponents effectively.
+Additionally, I would concentrate on team constellations, identifying which Pokémon work well together and how their combined strengths can be maximized. This aspect is crucial for building balanced and synergistic teams that can handle diverse opponents effectively.
 
-Moreover,Iwould aim to refine the iterative approach further. Although it showed some potential, the results turned out to be diminishing over time. By enhancing the iterative method,Ibelieve more significant improvements in team performance could be achieved. This would involve fine-tuning the algorithms used, increasing the number of iterations, and incorporating more sophisticated evaluation metrics to better capture the dynamics of Pokémon battles.
+Moreover, I would aim to refine the iterative approach further. Although it showed some potential, the results turned out to be quite ineffective at finding a significantly better team. By enhancing the iterative method, I believe improvements in team performance could be achieved. This would involve fine-tuning the algorithms used, increasing the number of iterations, and incorporating more sophisticated evaluation metrics to better capture the dynamics of Pokémon battles.
 
 In summary, these refinements and deeper analyses would likely yield more robust and effective Pokémon team compositions, leveraging the full potential of the data and methodologies applied in this research.
 
 
 
 ## 6. References
-
-- List of all sources cited in the thesis
 [^1]: [Kaggle dataset](https://www.kaggle.com/datasets/mylesoneill/Pokémon-sun-and-moon-gen-7-stats?select=moves.csv).
 [^2]: [GitHub Repository](Testtest)
