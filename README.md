@@ -444,6 +444,34 @@ Using this approachIwas not able to identify any significantly better teams. It 
 ### 4.4 Incremental Team Optimization
 The findings from the Incremental Team Optimization are the most interesting for this project. I was unable to predict the outcomes based on the results of smaller teams removing the option of shortcutting the simulation process by predicting the outcomes. When identifying the top 20 perfoming teams of size 6 we find that the threshold team consistently gets outperformed over a simulation of 1000000 battles. Despite the difference in win probabilities being only minimal (a few ~100 wins over a simulation of 1000000 battles) the results are statistically significant according to Spearman's rank correlation coefficient with a p-value of `0.0038529945186214815`. Notably, Lunala, our only identified 2-king, is highly present (15/20 teams) in the top 20 performing teams. This suggests that our initial approach of looking for k-kings as essential picks is indeed a valid strategy.
 
+Example table afer 1000000 battles simulated:
+| Pokémon 1     | Pokémon 2             | Pokémon 3           | Pokémon 4         | Pokémon 5         | Pokémon 6     | Win Probability |
+| ------------- | --------------------- | ------------------- | ----------------- | ----------------- | ------------- | --------------- |
+| Lugia         | Giratina (Altered Forme) | Xerneas             | Yveltal            | Lunala             | Magearna      | 0.999913        |
+| Ho-Oh         | Arceus (Normal)         | Zekrom              | Xerneas            | Yveltal            | Lunala        | 0.999873        |
+| Ho-Oh         | Giratina (Altered Forme) | Xerneas             | Yveltal            | Solgaleo           | Lunala        | 0.999872        |
+| Lugia         | Ho-Oh                  | Dialga              | Giratina (Altered Forme) | Yveltal            | Solgaleo      | 0.999863        |
+| Lugia         | Jirachi                | Giratina (Altered Forme) | Yveltal            | Lunala             | Necrozma (Dusk Mane) | 0.999861        |
+| Lugia         | Dialga                 | Giratina (Altered Forme) | Arceus (Normal)    | Yveltal            | Lunala        | 0.999854        |
+| Ho-Oh         | Giratina (Altered Forme) | Arceus (Normal)    | Haxorus            | Yveltal            | Lunala        | 0.999852        |
+| Lugia         | Ho-Oh                  | Jirachi             | Giratina (Altered Forme) | Yveltal            | Lunala        | 0.999851        |
+| Ho-Oh         | Giratina (Altered Forme) | Arceus (Normal)    | Zekrom             | Yveltal            | Lunala        | 0.99985         |
+| Giratina (Altered Forme) | Arceus (Normal)  | Xerneas            | Yveltal            | Solgaleo           | Lunala        | 0.99985         |
+| Lugia         | Jirachi                | Giratina (Altered Forme) | Yveltal            | Lunala             | Magearna      | 0.999842        |
+| Lugia         | Dialga                 | Giratina (Altered Forme) | Haxorus            | Zoroark            | Lunala        | 0.999819        |
+| Ho-Oh         | Jirachi                | Giratina (Altered Forme) | Zoroark            | Yveltal            | Lunala        | 0.999808        |
+| Lugia         | Dialga                 | Regigigas           | Giratina (Altered Forme) | Yveltal            | Solgaleo      | 0.999807        |
+| Lugia         | Ho-Oh                  | Dialga              | Giratina (Altered Forme) | Haxorus            | Lunala        | 0.999796        |
+| Ho-Oh         | Dialga                 | Giratina (Altered Forme) | Arceus (Normal)    | Zoroark            | Xerneas       | 0.999786        |
+| Giratina (Altered Forme) | Zoroark       | Xerneas            | Yveltal            | Solgaleo           | Lunala        | 0.999783        |
+| Ho-Oh         | Jirachi                | Giratina (Altered Forme) | Zekrom             | Yveltal            | Solgaleo      | 0.999758        |
+| Lugia         | Ho-Oh                  | Giratina (Altered Forme) | Haxorus            | Zoroark            | Lunala        | 0.999744        |
+| Lugia         | Ho-Oh                  | Dialga              | Giratina (Altered Forme) | Haxorus            | Solgaleo      | 0.99973         |
+| Giratina (Altered Forme) | Lunala       | Arceus (Normal)    | Dialga             | Solgaleo           | Ho-Oh         | 0.999695        |
+
+
+
+
 ## 5. Conclusion
 Over the course of my project,I identified a best-performing Pokémon team, although it only marginally outperformed other teams. Using graph theory proved to be a helpful tool in reasoning about Pokémon teams, offering insights into their strengths and interactions. This approach can be particularly useful in identifying key Pokémon and understanding the dynamics of team compositions. Despite the marginal improvement, the findings highlight the potential of graph theory and iterative team improvements as a valuable framework for analyzing and optimizing Pokémon teams.
 
