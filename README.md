@@ -467,6 +467,7 @@ Example table afer 1000000 battles simulated:
 | Ho-Oh         | Jirachi                | Giratina (Altered Forme) | Zekrom             | Yveltal            | Solgaleo      | 0.999758        |
 | Lugia         | Ho-Oh                  | Giratina (Altered Forme) | Haxorus            | Zoroark            | Lunala        | 0.999744        |
 | Lugia         | Ho-Oh                  | Dialga              | Giratina (Altered Forme) | Haxorus            | Solgaleo      | 0.99973         |
+| ------------- | --------------------- | ------------------- | ----------------- | ----------------- | ------------- | --------------- |
 | Giratina (Altered Forme) | Lunala       | Arceus (Normal)    | Dialga             | Solgaleo           | Ho-Oh         | 0.999695        |
 
 
