@@ -427,8 +427,8 @@ In this section, we delve into the application of graph theory to analyze the in
 Using our functions for dominating sets we find the following dominating sets in the first 151 Pokémon:
 
 `out_degree_dominating_set(G)`: *Snorlax, Mewtwo, Dragonite*  
-`brute_find_dominating_sets(G)`: *{Dragonite, Gengar, Snorlax}, {Dragonite, Mewtwo, Snorlax}* 
-`nx.dominating_set(G)`: *Alakazam, Mew, Krabby, Zapdos, Tentacool, Poliwrath, Dugtrio, Pinsir, Magneton, Golduck, Tentacruel, Starmie, Omastar, Mewtwo, Exeggutor, Dragonite, Haunter*
+`brute_find_dominating_sets(G)`: *{Dragonite, Gengar, Snorlax}, {Dragonite, Mewtwo, Snorlax}*  
+`nx.dominating_set(G)`: *Alakazam, Mew, Krabby, Zapdos, Tentacool, Poliwrath, Dugtrio, Pinsir, Magneton, Golduck, Tentacruel, Starmie, Omastar, Mewtwo, Exeggutor, Dragonite, Haunter*  
 
 Using the existing function `nx.dominating_set(G)` is not an option due to its randomness when finding dominating sets as they are not minimal. The functions implemented by myself are a lot quicker in the case of the `out_degree_dominating_set(G)` function and find a minimal subset in both of my implemented functions. For bigger subsets of the whole dataset we cannot really find any minimal dominating sets as it turns out to be too computationally demanding. Although not possible for bigger subsets I confirmed that all 4 Pokémon (*Dragonite, Gengar, Snorlax, Mewtwo*) found in the minimal dominating sets were present in the top performing teams of size 6 in the incremental team optimization.
 
